@@ -8,10 +8,12 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
+import { AppNavMenuComponent } from './app-nav-menu/app-nav-menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AppNavMenuComponent
   ],
   imports: [
     BrowserModule,
