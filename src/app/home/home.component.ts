@@ -1,4 +1,5 @@
 import { Component, OnInit,  HostListener, ViewChild } from '@angular/core';
+import { Room } from '../models/room';
 
 @Component({
   selector: 'app-home',
@@ -6,12 +7,24 @@ import { Component, OnInit,  HostListener, ViewChild } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  headElements: ['Room', 'Latest Log', 'Actions'];
+  headElements: string[];
+  rooms: Room[];
+  from: number;
+  to: number;
 
   constructor() { }
 
   ngOnInit() {
+    this.headElements = ['Room', 'Latest', 'Actions'];
+    this.rooms = [];
   }
+  generateRoomNumbers(): void {
+
+    for (let index = this.from; index < this.to; index++) {
+     const tempRoom: Room = new Room(index);
+     this.rooms.push(tempRoom);
+    }
+    }
 
 }
 

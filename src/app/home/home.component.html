@@ -59,11 +59,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let el of elements; let i = index">
-        <th scope="row">{{el.id}}</th>
-        <td class="red-text">{{el.first}}</td>
-        <td>{{el.last}}</td>
-        <td>{{el.handle}}</td>
+      <tr *ngFor="let room of rooms; let i = index">
+        <th scope="row">{{room.roomNumber}}</th>
+        <td >{{room.latest}}</td>
+        <td>Actions</td>
+
       </tr>
     </tbody>
   </table>
