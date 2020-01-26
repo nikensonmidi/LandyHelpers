@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   rooms: Room[];
   from: number;
   to: number;
+  searchText: string;
 
   constructor() { }
 

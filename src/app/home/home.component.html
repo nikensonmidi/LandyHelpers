@@ -1,14 +1,14 @@
 
 
 
-<div class="container">
+<div class="container" style="margin-top: 100px;">
 <!--Generating the rooms-->
 <div class="row">
   <div class="col-md-4 mx-auto">
     <div class="md-form">
       <input
-        type="text"
-        [(ngModel)]="beginrange"
+        type="number"
+        [(ngModel)]="from"
         class="form-control"
         id="beginrange"
         mdbInput
@@ -19,8 +19,8 @@
   <div class="col-md-4 mx-auto">
     <div class="md-form">
       <input
-        type="text"
-        [(ngModel)]="endrange"
+        type="number"
+        [(ngModel)]="to"
         class="form-control"
         id="endrange"
         mdbInput
@@ -29,13 +29,14 @@
     </div>
   </div>
   <div class="col-md-4 mx-auto">
-    <button class="btn blue-gradient">Add Room</button>
+    <button class="btn blue-gradient" (click) ="generateRoomNumbers()">Add Room</button>
   </div>
 </div>
 
   <div class="row">
     <div class="col-md-12 mx-auto">
       <div class="md-form">
+
         <input
           type="text"
           [(ngModel)]="searchText"
