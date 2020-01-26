@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-app-nav-menu',
+  selector: 'app-nav-menu',
   templateUrl: './app-nav-menu.component.html',
   styleUrls: ['./app-nav-menu.component.scss']
 })
 export class AppNavMenuComponent implements OnInit {
-
+@Input() sideContainer: any;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  menuClick() {
+console.log(this.sideContainer);
   }
 
 }

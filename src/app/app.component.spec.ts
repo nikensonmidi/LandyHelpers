@@ -16,9 +16,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-uikit-pro-standard'`, () => {
+  it(`should have as title 'Landy Helpers'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ng-uikit-pro-standard');
+    expect(app.title).toEqual('Landy Helpers');
   });
 });

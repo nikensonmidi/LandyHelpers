@@ -1,4 +1,44 @@
 
 
 
- <router-outlet></router-outlet>
+    <mdb-navbar class="justify-content-end" SideClass="navbar navbar-expand-lg navbar-dark indigo" mdbStickyHeader style="height:300px;">
+      <mdb-navbar-brand >
+        <a (click)="sidenav.toggle()" mdbBtn><mdb-icon fas icon="bars"></mdb-icon></a>
+        <!-- <a (click)="sidenav.toggle()" mdbBtn color="primary" class="p-3 button-collapse"><mdb-icon fas icon="bars"></mdb-icon></a> -->
+      </mdb-navbar-brand>
+    </mdb-navbar>
+    <router-outlet></router-outlet>
+
+
+<!-- Sidebar navigation -->
+<mdb-side-nav #sidenav class="fixed blue-gradient" [overlay]="true" [fixed]="true">
+  <!-- Logo -->
+  <li>
+    <div class="logo-wrapper waves-light text-center">
+      <h3>LANDY HELPERS</h3>
+    </div>
+  </li>
+  <!--/. Logo -->
+
+  <!-- Side navigation links -->
+  <li>
+    <ul class="collapsible collapsible-accordion">
+      <mdb-accordion [multiple]="false" aria-multiselectable="false">
+
+
+
+        <mdb-accordion-item class="no-collase">
+          <mdb-accordion-item-head mdbWavesEffect><mdb-icon far icon="hand-pointer"></mdb-icon> History
+          </mdb-accordion-item-head>
+          <mdb-accordion-item-body></mdb-accordion-item-body>
+        </mdb-accordion-item>
+
+
+
+      </mdb-accordion>
+    </ul>
+  </li>
+  <!--/. Side navigation links -->
+  <div class="sidenav-bg mask-strong"></div>
+</mdb-side-nav>
+<!--/. Sidebar navigation -->
