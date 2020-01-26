@@ -60,7 +60,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let room of rooms; let i = index">
+      <tr *ngFor="let room of filteredRooms; let i = index">
         <th scope="row">{{room.roomNumber}}</th>
         <td >{{room.latest}}</td>
         <td>Actions</td>
