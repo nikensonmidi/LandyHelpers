@@ -9,14 +9,13 @@ import { AppComponent } from './app.component';
 
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
 import { AppNavMenuComponent } from './app-nav-menu/app-nav-menu.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
+
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppNavMenuComponent,
-    SidenavComponent,
     HomeComponent
   ],
   imports: [
