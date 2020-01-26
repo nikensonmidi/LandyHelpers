@@ -3,6 +3,7 @@ import { Room } from '../models/room';
 import { Note } from '../models/note';
 import { not } from '@angular/compiler/src/output/output_ast';
 import { Supervisor } from '../models/supervisor';
+import { Moment } from 'node_modules/moment';
 
 @Component({
   selector: 'app-home',
@@ -45,12 +46,13 @@ export class HomeComponent implements OnInit {
     }
     this.filteredRooms = this.rooms;
     }
+// use momenet to drill the swearch for days
 
     filterRoomList(filter: string): Room[] {
 return this.rooms.filter( r => {
 
-return r.roomNumber.toString().includes(filter.toLowerCase().trim());
-
+return r.roomNumber.toString().includes(filter.toLowerCase().trim()) ||
+r.latest.toDateString().includes(filter.toLowerCase().trim());
 });
     }
 

@@ -62,7 +62,7 @@
     <tbody>
       <tr *ngFor="let room of filteredRooms;">
         <th scope="row">{{room.roomNumber}}</th>
-        <td >{{room.latest}}</td>
+        <td >{{room.latest | date : 'medium'}}</td>
         <td>Actions</td>
 
       </tr>
