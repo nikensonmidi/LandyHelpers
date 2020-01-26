@@ -1,5 +1,8 @@
 import { Component, OnInit,  HostListener, ViewChild } from '@angular/core';
 import { Room } from '../models/room';
+import { Note } from '../models/note';
+import { not } from '@angular/compiler/src/output/output_ast';
+import { Supervisor } from '../models/supervisor';
 
 @Component({
   selector: 'app-home',
@@ -32,8 +35,13 @@ export class HomeComponent implements OnInit {
   generateRoomNumbers(): void {
 
     for (let index = this.from; index < this.to; index++) {
-     const tempRoom: Room = new Room(index);
-     this.rooms.push(tempRoom);
+    const roomNote: Note = new Note();
+    roomNote.dateCreated = new Date();
+    roomNote.name = 'not clean enough';
+    roomNote.supervisor = [new Supervisor()];
+
+    const tempRoom: Room = new Room(index, [roomNote]);
+    this.rooms.push(tempRoom);
     }
     this.filteredRooms = this.rooms;
     }

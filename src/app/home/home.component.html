@@ -1,7 +1,7 @@
 
 
 
-<div class="container" style="margin-top: 100px;">
+<div class="container" >
 <!--Generating the rooms-->
 <div class="row">
   <div class="col-md-4 mx-auto">
@@ -48,11 +48,11 @@
       </div>
     </div>
   </div>
-  <table mdbTable class="z-depth-1">
-    <thead>
+  <table mdbTable class="z-depth-1" stickyHeader="true">
+    <thead class="sticky-top">
       <tr>
         <th
-          *ngFor="let head of headElements; let i = index"
+          *ngFor="let head of headElements;"
           scope="col"
         >
           {{head}}
@@ -60,7 +60,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let room of filteredRooms; let i = index">
+      <tr *ngFor="let room of filteredRooms;">
         <th scope="row">{{room.roomNumber}}</th>
         <td >{{room.latest}}</td>
         <td>Actions</td>
