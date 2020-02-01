@@ -1,11 +1,13 @@
 import { Supervisor } from './supervisor';
 import { Note } from './note';
+import * as moment from 'node_modules/moment';
 
 
 export class Room {
+  key: string;
   roomNumber: number;
   notes: Note[];
-  latest: Date;
+  latest: string;
 
 
   constructor(roomNumber: number, notes: Note[] = []) {
@@ -22,6 +24,7 @@ return 0;
 
 });
 
+// this.latest = this.notes.length > 0 ? moment(this.notes[0].dateCreated).toDate() : null;
 this.latest = this.notes.length > 0 ? this.notes[0].dateCreated : null;
 
   }

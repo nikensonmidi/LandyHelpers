@@ -7,11 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import {  AngularFireModule } from '@angular/fire';
+import  { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
 import { AppNavMenuComponent } from './app-nav-menu/app-nav-menu.component';
 
 import { HomeComponent } from './home/home.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-
+AngularFireModule.initializeApp(environment.firebase),
+AngularFireDatabaseModule,
     ToastModule.forRoot(),
     MDBBootstrapModulesPro.forRoot(),
     AgmCoreModule.forRoot({

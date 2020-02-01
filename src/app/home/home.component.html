@@ -36,7 +36,6 @@
   <div class="row">
     <div class="col-md-12 mx-auto">
       <div class="md-form">
-
         <input
           type="text"
           [(ngModel)]="searchText"
@@ -48,6 +47,7 @@
       </div>
     </div>
   </div>
+
   <table mdbTable class="z-depth-1" stickyHeader="true">
     <thead class="sticky-top">
       <tr>
@@ -62,7 +62,7 @@
     <tbody>
       <tr *ngFor="let room of filteredRooms;">
         <th scope="row">{{room.roomNumber}}</th>
-        <td >{{room.latest | date : 'medium'}}</td>
+        <td >{{room.latest }}</td>
         <td>Actions</td>
 
       </tr>

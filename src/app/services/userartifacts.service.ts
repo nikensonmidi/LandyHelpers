@@ -1,20 +1,26 @@
 import { Injectable } from '@angular/core';
-import * as UserData from '../../assets/userData.json';
-import {  write } from 'node_modules/write-json';
 import { Room } from '../models/room.js';
+import {  AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserartifactsService {
+  private dbPath = '/models/room';
+roomsref: AngularFireList<Room> = null;
+  constructor(private db: AngularFireDatabase) {
+  this.roomsref = db.list(this.dbPath);
+  }
 
-  constructor() { }
+  updateRoomList(rooms: Room[]): void {
 
-  updateRoomList(rooms: Room[]) {
-write('../../assets/userData.json', rooms, (error) => {
-console.log(error);
-
-});
+   for (let i = 0; i < rooms.length; i++) {
+this.roomsref.push(rooms[i]);
+   }
+// this.db.list('landy').push(rooms);
+  }
+  getRooms(): AngularFireList<Room> {
+return this.roomsref;
   }
 
 }
