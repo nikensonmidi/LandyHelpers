@@ -14,7 +14,9 @@ import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-ui
 import { AppNavMenuComponent } from './app-nav-menu/app-nav-menu.component';
 
 import { HomeComponent } from './home/home.component';
-import { environment } from 'src/environments/environment';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ AngularFireDatabaseModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ]),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [MDBSpinningPreloader],
   bootstrap: [AppComponent],
