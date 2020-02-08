@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.headElements = ['Room', 'Latest', 'Actions'];
     this.rooms = [];
-    this.userDataService.getRooms().remove();
+
 this.getRooms();
   }
   generateRoomNumbers(): void {
