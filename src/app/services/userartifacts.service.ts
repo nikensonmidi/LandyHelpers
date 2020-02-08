@@ -6,7 +6,8 @@ import {  AngularFireDatabase, AngularFireList } from '@angular/fire/database';
   providedIn: 'root'
 })
 export class UserartifactsService {
-  private dbPath = '/models/room';
+  private dbPath = 'rooms';
+  private rooms: Room[];
 roomsref: AngularFireList<Room> = null;
   constructor(private db: AngularFireDatabase) {
   this.roomsref = db.list(this.dbPath);
@@ -17,7 +18,8 @@ roomsref: AngularFireList<Room> = null;
    for (let i = 0; i < rooms.length; i++) {
 this.roomsref.push(rooms[i]);
    }
-// this.db.list('landy').push(rooms);
+
+
   }
   getRooms(): AngularFireList<Room> {
 return this.roomsref;

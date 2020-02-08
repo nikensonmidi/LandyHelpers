@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   from: number;
   to: number;
   filteredRooms: Room[];
-  roomTest: any;
 
   private _searchText: string;
   public get searchText(): string {
@@ -40,41 +39,54 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.headElements = ['Room', 'Latest', 'Actions'];
     this.rooms = [];
-    // this.roomTest = this.userDataService.getRooms();
-    this.userDataService.getRooms().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(r => {
-      this.rooms = r;
-      this.filteredRooms = this.rooms;
-    });
+    this.userDataService.getRooms().remove();
+this.getRooms();
   }
   generateRoomNumbers(): void {
+let tempRooms: Room[] = [];
+for (let index = this.from; index <= this.to; index++) {
+      // Check to see if this room already exist
+const roomExist = this.rooms.some((r) =>  r.roomNumber === index);
 
-    for (let index = this.from; index < this.to; index++) {
-    const roomNote: Note = new Note();
-    roomNote.dateCreated = moment().format('DD MMM YYYY');
-    roomNote.name = 'not clean enough';
-    roomNote.key = index.toString();
-    console.log(roomNote);
-    const supervisor = new Supervisor();
-    supervisor.key = index.toString();
-    roomNote.supervisors = [supervisor];
+if (!roomExist) {
+  const roomNote: Note = new Note();
+  roomNote.dateCreated = moment().format('DD MMM YYYY');
+  roomNote.name = 'not clean enough';
 
-    const tempRoom: Room = new Room(index, [roomNote]);
-    console.log(tempRoom);
-    this.rooms.push(tempRoom);
+  const supervisor = new Supervisor();
+  roomNote.supervisors = [supervisor];
+
+  const tempRoom: Room = new Room(index, [roomNote]);
+
+  tempRooms.push(tempRoom);
+}
+
     }
-    this.userDataService.updateRoomList(this.rooms);
-    this.filteredRooms = this.rooms;
+this.userDataService.updateRoomList(tempRooms);
+
+this.getRooms();
     }
-// use momenet to drill the swearch for days
+
+    getRooms(): void {
+      this.userDataService.getRooms().snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ key: c.payload.key, ...c.payload.val() })
+          )
+        )
+      ).subscribe(r => {
+        this.rooms = r.sort( ( prev, next) => {
+          if (prev.roomNumber > next.roomNumber) { return 1; }
+           if (prev.roomNumber < next.roomNumber) { return -1; }
+           return 0;
+         });
+
+        this.filteredRooms = this.rooms;
+      });
+    }
 
     filterRoomList(filter: string): Room[] {
-      console.log(this.rooms);
+
       return this.rooms.filter( r => {
 
 return r.roomNumber.toString().includes(filter.toLowerCase().trim()) ||
