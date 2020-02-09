@@ -19,7 +19,6 @@ roomsref: AngularFireList<Room> = null;
 this.roomsref.push(rooms[i]);
    }
 
-
   }
   getRooms(): AngularFireList<Room> {
 return this.roomsref;
