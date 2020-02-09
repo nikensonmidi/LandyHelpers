@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Room } from '../models/room.js';
-import {  AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -8,20 +8,17 @@ import {  AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 export class UserartifactsService {
   private dbPath = 'rooms';
   private rooms: Room[];
-roomsref: AngularFireList<Room> = null;
+  roomsref: AngularFireList<Room> = null;
   constructor(private db: AngularFireDatabase) {
-  this.roomsref = db.list(this.dbPath);
+    this.roomsref = db.list(this.dbPath);
   }
 
-  updateRoomList(rooms: Room[]): void {
-
-   for (let i = 0; i < rooms.length; i++) {
-this.roomsref.push(rooms[i]);
-   }
-
+  createRooms(rooms: Room[]): void {
+    for (let i = 0; i < rooms.length; i++) {
+      this.roomsref.push(rooms[i]);
+    }
   }
   getRooms(): AngularFireList<Room> {
-return this.roomsref;
+    return this.roomsref;
   }
-
 }
