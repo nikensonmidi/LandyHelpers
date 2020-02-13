@@ -8,7 +8,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import {  AngularFireModule } from '@angular/fire';
-import  { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
 import { AppNavMenuComponent } from './app-nav-menu/app-nav-menu.component';
