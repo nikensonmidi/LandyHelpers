@@ -7,6 +7,7 @@ import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/operators';
 import { AngularFireList } from '@angular/fire/database';
 import { UserartifactsService } from '../services/userartifacts.service';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-room-list',
@@ -21,6 +22,7 @@ export class RoomListComponent implements OnInit {
   filteredRooms: Room[];
 
   private _searchText: string;
+  rooms$: AngularFireList<Room>;
   public get searchText(): string {
     return this._searchText;
   }
@@ -30,7 +32,7 @@ export class RoomListComponent implements OnInit {
       ? this.filterRoomList(this._searchText)
       : this.rooms;
   }
-  constructor(private userDataService: UserartifactsService) { }
+  constructor(private userDataService: UserartifactsService, private roomService: RoomService) { }
 
   ngOnInit() {
     this.headElements = ['Room', 'Latest', 'Actions'];
@@ -64,6 +66,7 @@ export class RoomListComponent implements OnInit {
   }
 
   getRooms(): void {
+this.rooms$ = this.roomService.getRooms();
     this.userDataService
       .getRooms()
       .snapshotChanges()
