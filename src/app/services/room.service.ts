@@ -28,10 +28,10 @@ saveRooms(rooms: Room[]): void {
   });
 }
 editRoom(room: Room) {
-  this.rooms$.update(room.$key, room);
+return  this.rooms$.update(room.key, room);
 }
-removeRoom(room: any): void {
-  this.rooms$.remove(room.key).then(_ => console.log('item removed from the list'));
+removeRoom(room: Room) {
+ return this.rooms$.remove(room.key).then(_ => console.log('item removed from the list'));
 }
 
 }

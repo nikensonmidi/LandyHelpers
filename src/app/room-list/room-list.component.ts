@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { AngularFireList } from '@angular/fire/database';
 import { UserartifactsService } from '../services/userartifacts.service';
 import { RoomService } from '../services/room.service';
+import { setImmediate } from 'timers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room-list',
@@ -21,6 +23,7 @@ export class RoomListComponent implements OnInit {
   to: number;
   filteredRooms: Room[];
 
+
   private _searchText: string;
   public get searchText(): string {
     return this._searchText;
@@ -28,10 +31,10 @@ export class RoomListComponent implements OnInit {
   public set searchText(value: string) {
     this._searchText = value;
     this.filteredRooms = this._searchText
-      ? this.filterRoomList(this._searchText)
-      : this.rooms;
+      ? this.filterRoomList(this._searchText).filter((e, i) => i <= 50)
+      : this.rooms.filter((e, i) => i <= 50);
   }
-  constructor(private userDataService: UserartifactsService, private roomService: RoomService) { }
+  constructor(private router: Router, private roomService: RoomService) { }
 
   ngOnInit() {
     this.headElements = ['Room', 'Latest', 'Actions'];
@@ -59,28 +62,12 @@ export class RoomListComponent implements OnInit {
         tempRooms.push(tempRoom);
       }
     }
-    //this.userDataService.createRooms(tempRooms);
     this.roomService.saveRooms(tempRooms);
 
     this.getRooms();
   }
 
   getRooms(): void {
-    /**
-     * Replacing snapshotCnhages with valueChages
-     * the persistence of objects have key properties
-     * .snapshotChanges()
-.pipe(
-  map(changes =>
-    changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-  )
-)
-
-
-.valueChanges()
-     */
-
-
  this.roomService.getRooms()
 .snapshotChanges()
 .pipe(
@@ -99,12 +86,18 @@ export class RoomListComponent implements OnInit {
     return 0;
   });
 
-  this.filteredRooms = this.rooms;
+  this.filteredRooms = this.rooms.filter((e, i) => i <= 50);
 });
   }
 
 removeRoom(room: Room): void {
-  this.roomService.removeRoom(room);
+  this.roomService.removeRoom(room).then(_ => {
+    window.scrollTo(0, 0);
+  });
+}
+
+getDetail(room: Room): void {
+  this.router.navigate(['room-edit', room.key]);
 }
   filterRoomList(filter: string): Room[] {
     return this.rooms.filter(r => {

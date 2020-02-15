@@ -4,7 +4,7 @@ import * as moment from 'node_modules/moment';
 
 
 export class Room {
-  $key: string;
+  key: string;
   roomNumber: number;
   notes: Note[];
   latest: string;
