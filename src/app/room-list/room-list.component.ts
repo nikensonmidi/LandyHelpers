@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Room } from '../models/room';
 import { Note } from '../models/note';
-import { not } from '@angular/compiler/src/output/output_ast';
+
 import { Supervisor } from '../models/supervisor';
 import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/operators';

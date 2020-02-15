@@ -4,7 +4,7 @@
     <mdb-navbar class="justify-content-end" SideClass="navbar navbar-expand-lg navbar-dark indigo"  style="height:300px;">
       <mdb-navbar-brand >
         <a (click)="sidenav.toggle()" mdbBtn><mdb-icon fas icon="bars"></mdb-icon></a>
-        <!-- <a (click)="sidenav.toggle()" mdbBtn color="primary" class="p-3 button-collapse"><mdb-icon fas icon="bars"></mdb-icon></a> -->
+
       </mdb-navbar-brand>
     </mdb-navbar>
     <router-outlet></router-outlet>
@@ -28,7 +28,8 @@
 
 
         <mdb-accordion-item class="no-collase">
-          <mdb-accordion-item-head mdbWavesEffect><mdb-icon far icon="hand-pointer"></mdb-icon> History
+          <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/room-list']"  >
+            <mdb-icon far icon="hand-pointer"></mdb-icon> Rooms
           </mdb-accordion-item-head>
           <mdb-accordion-item-body></mdb-accordion-item-body>
         </mdb-accordion-item>
