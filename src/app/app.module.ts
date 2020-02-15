@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ AngularFireDatabaseModule,
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AppRoutingModule,
   ],
   providers: [MDBSpinningPreloader],
   bootstrap: [AppComponent],
