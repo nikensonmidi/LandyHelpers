@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
 import {  AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
@@ -18,13 +17,16 @@ import { HomeComponent } from './home/home.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
+import { RoomListComponent } from './room-list/room-list.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppNavMenuComponent,
-    HomeComponent
+    HomeComponent,
+    RoomListComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +41,7 @@ AngularFireDatabaseModule,
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: 'Your_api_key'
     }),
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' }
-    ]),
+
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
   ],
