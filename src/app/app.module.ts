@@ -34,7 +34,7 @@ import { RoomEditComponent } from './room-edit/room-edit.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase),
 AngularFireDatabaseModule,
     ToastModule.forRoot(),
     MDBBootstrapModulesPro.forRoot(),
@@ -42,9 +42,9 @@ AngularFireDatabaseModule,
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: 'Your_api_key'
     }),
-
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+
   ],
   providers: [MDBSpinningPreloader],
   bootstrap: [AppComponent],
