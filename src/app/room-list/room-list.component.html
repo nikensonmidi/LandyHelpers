@@ -64,7 +64,9 @@
         <tr *ngFor="let room of filteredRooms;">
           <th scope="row">{{room.roomNumber}}</th>
           <td >{{room.latest }}</td>
-          <td>Actions</td>
+          <td>
+            <a type="button" (click)="removeRoom(room)" class="btn-floating indigo"><mdb-icon fas icon="minus"></mdb-icon></a>
+          </td>
 
         </tr>
       </tbody>

@@ -22,7 +22,6 @@ export class RoomListComponent implements OnInit {
   filteredRooms: Room[];
 
   private _searchText: string;
-  rooms$: AngularFireList<Room>;
   public get searchText(): string {
     return this._searchText;
   }
@@ -67,6 +66,21 @@ export class RoomListComponent implements OnInit {
   }
 
   getRooms(): void {
+    /**
+     * Replacing snapshotCnhages with valueChages
+     * the persistence of objects have key properties
+     * .snapshotChanges()
+.pipe(
+  map(changes =>
+    changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+  )
+)
+
+
+.valueChanges()
+     */
+
+
  this.roomService.getRooms()
 .snapshotChanges()
 .pipe(
@@ -87,34 +101,11 @@ export class RoomListComponent implements OnInit {
 
   this.filteredRooms = this.rooms;
 });
-
-/**
- *     this.userDataService
-      .getRooms()
-      .snapshotChanges()
-      .pipe(
-        map(changes =>
-          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-        )
-      )
-      .subscribe(r => {
-        this.rooms = r.sort((prev, next) => {
-          if (prev.roomNumber > next.roomNumber) {
-            return 1;
-          }
-          if (prev.roomNumber < next.roomNumber) {
-            return -1;
-          }
-          return 0;
-        });
-
-        this.filteredRooms = this.rooms;
-      });
- */
-
   }
 
-
+removeRoom(room: Room): void {
+  this.roomService.removeRoom(room);
+}
   filterRoomList(filter: string): Room[] {
     return this.rooms.filter(r => {
       return (

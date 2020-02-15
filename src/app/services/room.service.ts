@@ -27,5 +27,11 @@ saveRooms(rooms: Room[]): void {
     this.saveRoom(r);
   });
 }
+editRoom(room: Room) {
+  this.rooms$.update(room.$key, room);
+}
+removeRoom(room: any): void {
+  this.rooms$.remove(room.key).then(_ => console.log('item removed from the list'));
+}
 
 }
