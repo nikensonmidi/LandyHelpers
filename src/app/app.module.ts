@@ -18,6 +18,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { RoomListComponent } from './room-list/room-list.component';
+import { RoomEditComponent } from './room-edit/room-edit.component';
 
 
 
@@ -26,7 +27,8 @@ import { RoomListComponent } from './room-list/room-list.component';
     AppComponent,
     AppNavMenuComponent,
     HomeComponent,
-    RoomListComponent
+    RoomListComponent,
+    RoomEditComponent
   ],
   imports: [
     BrowserModule,
