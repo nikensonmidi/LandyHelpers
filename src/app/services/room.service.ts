@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Room } from '../models/room';
 import { AngularFireDatabase, AngularFireObject, AngularFireList} from '@angular/fire/database';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
+
 
 
 @Injectable({
@@ -17,6 +16,16 @@ export class RoomService {
       getRooms(): AngularFireList<Room> {
         return this.rooms$;
       }
+saveRoom(room: Room): void{
+  this.rooms$.push(room)
+  .then(_ => console.log('success'))
+  .catch(error => console.log(error));
+}
 
+saveRooms(rooms: Room[]): void {
+  rooms.forEach(r => {
+    this.saveRoom(r);
+  });
+}
 
 }

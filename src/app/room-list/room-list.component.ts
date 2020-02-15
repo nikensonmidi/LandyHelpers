@@ -60,14 +60,36 @@ export class RoomListComponent implements OnInit {
         tempRooms.push(tempRoom);
       }
     }
-    this.userDataService.createRooms(tempRooms);
+    //this.userDataService.createRooms(tempRooms);
+    this.roomService.saveRooms(tempRooms);
 
     this.getRooms();
   }
 
   getRooms(): void {
-this.rooms$ = this.roomService.getRooms();
-    this.userDataService
+ this.roomService.getRooms()
+.snapshotChanges()
+.pipe(
+  map(changes =>
+    changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+  )
+)
+.subscribe(r => {
+  this.rooms = r.sort((prev, next) => {
+    if (prev.roomNumber > next.roomNumber) {
+      return 1;
+    }
+    if (prev.roomNumber < next.roomNumber) {
+      return -1;
+    }
+    return 0;
+  });
+
+  this.filteredRooms = this.rooms;
+});
+
+/**
+ *     this.userDataService
       .getRooms()
       .snapshotChanges()
       .pipe(
@@ -88,6 +110,8 @@ this.rooms$ = this.roomService.getRooms();
 
         this.filteredRooms = this.rooms;
       });
+ */
+
   }
 
 
