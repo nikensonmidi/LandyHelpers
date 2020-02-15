@@ -5,8 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomEditComponent } from './room-edit/room-edit.component';
-import { environment } from 'src/environments/environment';
-
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
