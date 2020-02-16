@@ -58,12 +58,12 @@ export class RoomEditComponent implements OnInit {
    this.notes? this.notes.push(new Note()) : [new Note];
   }
 
-  saveNote(note: Note, roomId: string) {
-   note.name = note.content.slice(0, 10);
+  saveNote(note: Note) {
+   note.name = this.room.roomNumber.toString();
    note.dateCreated = moment().format('DD MMM YYYY');
 this.noteService.saveNote(note).then(n => {
 
-this.noteService.saveRoomNote(roomId,n.key)
+this.noteService.saveRoomNote(this.room.key,n.key)
                   .then(result => console.log(result))
 
 })
