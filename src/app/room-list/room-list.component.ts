@@ -50,6 +50,7 @@ export class RoomListComponent implements OnInit {
 
       if (!roomExist) {
         const tempRoom: Room = new Room(index);
+        tempRoom.latest = moment().format('DD MMM YYYY');
         tempRooms.push(tempRoom);
       }
     }

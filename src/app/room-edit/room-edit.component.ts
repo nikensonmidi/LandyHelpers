@@ -6,6 +6,7 @@ import { Note } from "../models/note";
 import { NoteService } from "../services/note.service";
 import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/internal/operators/map';
+import { RoomNote } from '../models/room-note';
 
 @Component({
   selector: "app-room-edit",
@@ -15,6 +16,7 @@ import { map } from 'rxjs/internal/operators/map';
 export class RoomEditComponent implements OnInit {
   room: Room;
   notes: Note[];
+  roomNotes: RoomNote[];
   constructor(
     private roomService: RoomService,
     private noteService: NoteService,
@@ -26,40 +28,44 @@ export class RoomEditComponent implements OnInit {
     this.getRoom(key);
   }
   getRoom(key: string) {
-    this.roomService
-      .getRoom(key)
-      .valueChanges()
-      .subscribe(r => {
+    this.roomService.getRoom(key).valueChanges()
+                   .subscribe( r => {
+                    this.room  = r as Room;
+                    this.room.key = key;
+                    this.noteService
+                    .getRoomNotes(key)
+                    .valueChanges()
+                    .subscribe(rnotes => {
+                      this.roomNotes = rnotes as RoomNote[];
+                       this.notes = this.notes ? this.notes : [new Note()];
+                      this.noteService
+                        .getNotes()
+                        .snapshotChanges()
+                        .pipe(
+                          map(changes =>
+                            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+                          )
+                        )
+                        .subscribe(n => {
+                          let noteKeys = this.roomNotes.map(nk => nk.noteId);
+                         this.notes = n.filter(o => noteKeys.includes(o.key) );
+                        });
+                    });
+                   });
 
-        this.room = r as Room;
-        const noteKeys = this.room.notes?this.room.notes:[];
-          this.notes = [new Note()];
-
-        this.noteService
-          .getNotes()
-          .snapshotChanges()
-          .pipe(
-            map(changes =>
-              changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-            )
-          )
-          .subscribe(n => {
-            debugger
-            const tempNote = n as Note[];
-           let tempNotes = tempNote.filter( tempNote =>  noteKeys.includes(tempNote.key));
-           tempNotes.forEach(e => this.notes.push(e));
-
-          });
-      });
+  }
+  addNote(){
+   this.notes? this.notes.push(new Note()) : [new Note];
   }
 
   saveNote(note: Note, roomId: string) {
    note.name = note.content.slice(0, 10);
-   note.dateCreated = moment().format('DD MM YYYY');
+   note.dateCreated = moment().format('DD MMM YYYY');
 this.noteService.saveNote(note).then(n => {
-  this.room.notes? this.room.notes.push(n.key): this.room.notes = [n.key];
-  debugger
-  this.roomService.editRoom(this.room);
+
+this.noteService.saveRoomNote(roomId,n.key)
+                  .then(result => console.log(result))
+
 })
   }
 updateNote(note: Note) {

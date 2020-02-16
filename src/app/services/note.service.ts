@@ -17,6 +17,7 @@ export class NoteService {
   constructor(private db: AngularFireDatabase) {
     this.notes$ = this.db.list('notes');
     this.roomNotes$ = this.db.list('roomNotes');
+    this.roomNote = new RoomNote();
   }
 
   getNotes(): AngularFireList<Note> {
@@ -26,7 +27,7 @@ getNote(key: string){
   return this.db.object(`notes/${key}`);
 }
 getRoomNotes(roomId: string) {
-
+return this.db.list('roomNotes', ref => ref.orderByChild('roomId').equalTo(roomId));
 }
 saveRoomNote(roomId: string, noteId: string) {
   this.roomNote.noteId = noteId;

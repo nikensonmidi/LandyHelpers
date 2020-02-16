@@ -3,8 +3,11 @@
   <div class="col-xs-6" style="text-align: left;">
    <a type="button" class="btn-floating btn-elegant"  [routerLink]="['/room-list']"  ><mdb-icon fas icon="angle-left"></mdb-icon></a>
   </div>
-  <div class="col-xs-6" >
+  <div class="col-xs-4" >
     <h3 >{{ room.roomNumber }}</h3>
+  </div>
+  <div class="col-xs-2" >
+    <mdb-icon (click)="addNote()" fas icon="plus"></mdb-icon>
   </div>
 </div>
 
