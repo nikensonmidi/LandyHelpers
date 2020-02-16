@@ -49,15 +49,7 @@ export class RoomListComponent implements OnInit {
       const roomExist = this.rooms.some(r => r.roomNumber === index);
 
       if (!roomExist) {
-        const roomNote: Note = new Note();
-        roomNote.dateCreated = moment().format('DD MMM YYYY');
-        roomNote.name = 'not clean enough';
-
-        const supervisor = new Supervisor();
-        roomNote.supervisors = [supervisor];
-
-        const tempRoom: Room = new Room(index, [roomNote]);
-
+        const tempRoom: Room = new Room(index);
         tempRooms.push(tempRoom);
       }
     }

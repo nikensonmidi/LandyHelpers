@@ -1,11 +1,21 @@
 <div class="container" >
-<h3>{{ room.roomNumber }}</h3>
-<mdb-card>
+<div class="row">
+  <div class="col-xs-6" style="text-align: left;">
+   <a type="button" class="btn-floating btn-elegant"  [routerLink]="['/room-list']"  ><mdb-icon fas icon="angle-left"></mdb-icon></a>
+  </div>
+  <div class="col-xs-6" >
+    <h3 >{{ room.roomNumber }}</h3>
+  </div>
+</div>
+
+
+
+<mdb-card *ngFor="let note of room.notes">
   <div class="md-form input-group mb-3">
     <div class="input-group-prepend">
-      <span class="input-group-text md-addon" >@</span>
+      <span class="input-group-text md-addon" >Notes</span>
     </div>
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="material-addon1">
+    <textarea class="md-textarea form-control" aria-label="With textarea">{{ note.content }}</textarea>
   </div>
 </mdb-card>
 

@@ -1,5 +1,5 @@
 export class Supervisor {
-  $key: string;
+key: string;
 FirstName: string;
 LastName: string;
 }
