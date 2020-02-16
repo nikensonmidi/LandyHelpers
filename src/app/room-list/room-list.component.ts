@@ -6,9 +6,8 @@ import { Supervisor } from '../models/supervisor';
 import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/operators';
 import { AngularFireList } from '@angular/fire/database';
-import { UserartifactsService } from '../services/userartifacts.service';
 import { RoomService } from '../services/room.service';
-import { setImmediate } from 'timers';
+
 import { Router } from '@angular/router';
 
 @Component({
