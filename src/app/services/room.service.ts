@@ -5,14 +5,16 @@ import {
   AngularFireObject,
   AngularFireList
 } from "@angular/fire/database";
-import { Subject } from 'rxjs';
+import { Subject, from, BehaviorSubject} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: "root"
 })
 export class RoomService {
   rooms$: AngularFireList<Room>;
+  subject$ = new BehaviorSubject<string>(undefined);
 
   constructor(private db: AngularFireDatabase) {
     this.rooms$ = this.db.list("rooms");

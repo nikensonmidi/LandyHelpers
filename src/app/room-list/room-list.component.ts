@@ -30,8 +30,8 @@ export class RoomListComponent implements OnInit {
   public set searchText(value: string) {
     this._searchText = value;
     this.filteredRooms = this._searchText
-      ? this.filterRoomList(this._searchText).filter((e, i) => i <= 50)
-      : this.rooms.filter((e, i) => i <= 50);
+      ? this.filterRoomList(this._searchText)
+      : this.rooms;
   }
   constructor(private router: Router, private roomService: RoomService) { }
 
@@ -77,7 +77,7 @@ export class RoomListComponent implements OnInit {
     return 0;
   });
 
-  this.filteredRooms = this.rooms.filter((e, i) => i <= 50);
+  this.filteredRooms = this.rooms;
 });
   }
 

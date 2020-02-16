@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container" *ngIf="room">
 <div class="row">
   <div class="col-xs-6" style="text-align: left;">
    <a type="button" class="btn-floating btn-elegant"  [routerLink]="['/room-list']"  ><mdb-icon fas icon="angle-left"></mdb-icon></a>
@@ -10,12 +10,13 @@
 
 
 
-<mdb-card *ngFor="let note of room.notes">
+<mdb-card *ngFor="let note of notes">
   <div class="md-form input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text md-addon" >Notes</span>
     </div>
-    <textarea class="md-textarea form-control" aria-label="With textarea">{{ note.content }}</textarea>
+    <textarea (change)="saveNote(note,room.key)" [(ngModel)]="note.content"
+     class="md-textarea form-control" aria-label="With textarea"></textarea>
   </div>
 </mdb-card>
 
