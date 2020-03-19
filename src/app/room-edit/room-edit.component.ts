@@ -25,9 +25,9 @@ export class RoomEditComponent implements OnInit {
 
   ngOnInit() {
     const key = this.activatedRoute.snapshot.paramMap.get('id');
-    this.getRoom(key);
+    this.getRoomNote(key);
   }
-  getRoom(key: string) {
+  getRoomNote(key: string) {
     this.roomService
       .getRoom(key)
       .valueChanges()
