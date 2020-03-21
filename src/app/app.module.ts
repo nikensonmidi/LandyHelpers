@@ -19,6 +19,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomEditComponent } from './room-edit/room-edit.component';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -30,11 +32,11 @@ import { RoomEditComponent } from './room-edit/room-edit.component';
     RoomEditComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebase),
 AngularFireDatabaseModule,
     ToastModule.forRoot(),
     MDBBootstrapModulesPro.forRoot(),
@@ -46,7 +48,7 @@ AngularFireDatabaseModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
   ],
-  providers: [MDBSpinningPreloader],
+  providers: [MDBSpinningPreloader, AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent],
   schemas:      [ NO_ERRORS_SCHEMA ]
 })

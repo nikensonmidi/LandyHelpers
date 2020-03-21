@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
+import { auth, firestore } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
@@ -19,7 +19,7 @@ user$: Observable<User>;
     private router: Router
   ) {
 this.user$ = this.afAuth.authState.pipe(
-  switchMap(user =>{
+  switchMap(user => {
 if (user) {
   return this.afs.doc<User>(`user/${user.uid}`).valueChanges();
 } else {
@@ -33,12 +33,26 @@ if (user) {
 
 async googleSignin() {
 const provider = new auth.GoogleAuthProvider();
+//const provider = new auth.EmailAuthProvider();
 const credential = await this.afAuth.auth.signInWithPopup(provider);
 return this.updateUserData(credential.user);
 }
 
-updateUserData(user: User) {
+async signOut() {
+  await this.afAuth.auth.signOut();
+  return this.router.navigate(['/']);
+}
 
+
+private updateUserData(user: User) {
+const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+const userData = {
+  uid: user.uid,
+  email: user.email,
+  displayName: user.displayName
+};
+
+return userRef.set(userData, { merge: true} );
 }
 
 }
