@@ -1,11 +1,13 @@
 
 
-<div *ngIf="auth.user$ | async as user; else login ">
+<div *ngIf="auth.user  as user; else login ">
 
   {{ user | json }}
   <button class="button" (click)="auth.signOut()">Sign Out</button>
 
 </div>
+
+<ngx-auth-firebaseui appearance="standard"></ngx-auth-firebaseui>
 
 
 <ng-template #login>
