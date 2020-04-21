@@ -42,6 +42,7 @@ user: User;
 
   async signOut() {
     await this.afAuth.auth.signOut();
+    this.user = null;
     return this.router.navigate(['/']);
   }
 
