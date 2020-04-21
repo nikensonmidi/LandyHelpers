@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
-import { Room } from '../models/room';
+import { Room, RoomsResolved } from '../models/room';
 import { Note } from '../models/note';
 
 import { Supervisor } from '../models/supervisor';
@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { AngularFireList } from '@angular/fire/database';
 import { RoomService } from '../services/room.service';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-room-list',
@@ -33,12 +33,16 @@ export class RoomListComponent implements OnInit {
       ? this.filterRoomList(this._searchText)
       : this.rooms;
   }
-  constructor(private router: Router, private roomService: RoomService) { }
+  constructor(private router: Router,
+              private roomService: RoomService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.headElements = ['Room', 'Latest', 'Actions'];
     this.rooms = [];
 
+    const resolvedRooms: RoomsResolved = this.route.snapshot.data.rooms;
+    console.log(resolvedRooms);
     this.getRooms();
   }
 
@@ -102,9 +106,4 @@ getDetail(room: Room): void {
       );
     });
   }
-
-
-
-
-
 }

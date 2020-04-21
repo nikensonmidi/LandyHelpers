@@ -1,22 +1,22 @@
-import { Injectable } from "@angular/core";
-import { Room } from "../models/room";
+import { Injectable } from '@angular/core';
+import { Room } from '../models/room';
 import {
   AngularFireDatabase,
   AngularFireObject,
   AngularFireList
-} from "@angular/fire/database";
-import { Subject, from, BehaviorSubject } from "rxjs";
-import { switchMap } from "rxjs/operators";
+} from '@angular/fire/database';
+import { Subject, from, BehaviorSubject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class RoomService {
   rooms$: AngularFireList<Room>;
   subject$ = new BehaviorSubject<string>(undefined);
 
   constructor(private db: AngularFireDatabase) {
-    this.rooms$ = this.db.list("rooms");
+    this.rooms$ = this.db.list('rooms');
   }
   getRooms(): AngularFireList<Room> {
     return this.rooms$;
@@ -32,7 +32,7 @@ export class RoomService {
   saveRoom(room: Room): void {
     this.rooms$
       .push(room)
-      .then(_ => console.log("success"))
+      .then(_ => console.log('success'))
       .catch(error => console.log(error));
   }
 
@@ -47,6 +47,6 @@ export class RoomService {
   removeRoom(room: Room) {
     return this.rooms$
       .remove(room.key)
-      .then(_ => console.log("item removed from the list"));
+      .then(_ => console.log('item removed from the list'));
   }
 }

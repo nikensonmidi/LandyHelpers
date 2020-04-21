@@ -29,3 +29,9 @@ this.roomNumber = roomNumber;
   }
 
 }
+
+export interface RoomsResolved {
+ rooms: Room[];
+ error?: any;
+
+}
