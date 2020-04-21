@@ -4,7 +4,9 @@
    <a type="button" class="btn-floating btn-elegant"  [routerLink]="['/room-list']"  ><mdb-icon fas icon="angle-left"></mdb-icon></a>
   </div>
   <div  class="section2">
-    <h3 >{{ room.roomNumber }}</h3>
+
+    <a type="button" class="btn-floating btn-elegant"  (click)="addNote()" ><h3 style="color: white;">{{ room.roomNumber }}</h3></a>
+
   </div>
   <div  class="section3">
     <a type="button" class="btn-floating btn-elegant"  (click)="addNote()" ><mdb-icon fas icon="plus"></mdb-icon></a>
