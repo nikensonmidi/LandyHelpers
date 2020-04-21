@@ -1,13 +1,14 @@
 <div class="container" *ngIf="room">
-<div class="row">
-  <div class="col-xs-6" style="text-align: left;">
+<div class="room-edit-header" >
+  <div class="section1">
    <a type="button" class="btn-floating btn-elegant"  [routerLink]="['/room-list']"  ><mdb-icon fas icon="angle-left"></mdb-icon></a>
   </div>
-  <div class="col-xs-4" >
+  <div  class="section2">
     <h3 >{{ room.roomNumber }}</h3>
   </div>
-  <div class="col-xs-2" >
-    <mdb-icon (click)="addNote()" fas icon="plus"></mdb-icon>
+  <div  class="section3">
+    <a type="button" class="btn-floating btn-elegant"  (click)="addNote()" ><mdb-icon fas icon="plus"></mdb-icon></a>
+
   </div>
 </div>
 
