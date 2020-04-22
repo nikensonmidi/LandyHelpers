@@ -13,12 +13,16 @@ import { map, catchError } from 'rxjs/operators';
 export class RoomsResolver implements Resolve<RoomsResolved> {
 
   constructor(private roomService: RoomService) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): RoomsResolved | Observable<RoomsResolved> | Promise<RoomsResolved> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RoomsResolved> {
+
 return this.roomService.getRooms().snapshotChanges().pipe(
   map(changes =>
+   //changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    ({
 
-   // changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    ({rooms: changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))   })
+      rooms: changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+
+  })
     ),
     catchError(error => {
       const errorMsg = `from resolver: ${error}`;
