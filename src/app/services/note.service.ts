@@ -6,6 +6,9 @@ import {
 } from "@angular/fire/database";
 import { Note } from '../models/note';
 import { RoomNote } from '../models/room-note';
+import { RoomService } from './room.service';
+import { Room } from '../models/room';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,8 @@ export class NoteService {
   notes$: AngularFireList<Note>;
  roomNotes$: AngularFireList<RoomNote>;
  roomNote: RoomNote;
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase,
+              private roomService: RoomService) {
     this.notes$ = this.db.list('notes');
     this.roomNotes$ = this.db.list('roomNotes');
     this.roomNote = new RoomNote();
@@ -32,7 +36,10 @@ return this.db.list('roomNotes', ref => ref.orderByChild('roomId').equalTo(roomI
 saveRoomNote(roomId: string, noteId: string) {
   this.roomNote.noteId = noteId;
   this.roomNote.roomId = roomId;
-return this.roomNotes$.push(this.roomNote);
+  //update room latest date modified
+  const room = this.roomService.getRoom(roomId);
+  room.update({latest: moment().format('DD MMM YYYY')});
+  return this.roomNotes$.push(this.roomNote);
 }
   updateNote(note: Note) {
    return this.notes$.update(note.key, note);
