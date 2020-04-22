@@ -51,6 +51,7 @@ export class RoomEditComponent implements OnInit {
               .subscribe(n => {
                 const noteKeys = this.roomNotes.map(nk => nk.noteId);
                 this.notes = n.filter(o => noteKeys.includes(o.key));
+                this.notes = this.notes.length === 0 ? [new Note()] : this.notes;
               });
           });
       });
@@ -70,5 +71,8 @@ export class RoomEditComponent implements OnInit {
   }
   updateNote(note: Note) {
     this.noteService.updateNote(note);
+  }
+  removeNote(note: Note) {
+    this.notes = this.notes.filter(n => (n !== note));
   }
 }

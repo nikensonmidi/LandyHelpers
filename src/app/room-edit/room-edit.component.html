@@ -5,26 +5,32 @@
   </div>
   <div  class="section2">
 
-    <a type="button" class="btn-floating btn-elegant"  (click)="addNote()" ><h3 style="color: white;">{{ room.roomNumber }}</h3></a>
+    <a type="button" class="btn-floating btn-elegant"   ><h3 style="color: white;">{{ room.roomNumber }}</h3></a>
 
   </div>
   <div  class="section3">
-    <a type="button" class="btn-floating btn-elegant"  (click)="addNote()" ><mdb-icon fas icon="plus"></mdb-icon></a>
+    <a type="button" class="btn-floating btn-elegant"   ><mdb-icon fas icon="angle-right"></mdb-icon></a>
 
   </div>
 </div>
 
 
 
-<mdb-card *ngFor="let note of notes">
+
+<mdb-card *ngFor="let note of notes" >
   <div class="md-form input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text md-addon" >Notes</span>
     </div>
     <textarea (change)="saveNote(note)" [(ngModel)]="note.content"
      class="md-textarea form-control" aria-label="With textarea"></textarea>
+     <div class="input-group-append">
+      <a type="button" class="btn-floating btn-elegant" (click)="removeNote(note)" ><mdb-icon fas icon="minus"></mdb-icon></a>
+     </div>
   </div>
+
 </mdb-card>
 
 
+<button class="btn btn-primary btn-sm" (click)="addNote()">Add Note <mdb-icon fas icon="plus-circle"></mdb-icon></button>
 </div>
