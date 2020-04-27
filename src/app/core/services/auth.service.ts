@@ -46,7 +46,7 @@ user: User;
     return this.router.navigate(['/']);
   }
  userIsAuthenticated(): boolean {
-   return this.user !== null;
+   return this.user !== null && this.user !== undefined;
  }
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(

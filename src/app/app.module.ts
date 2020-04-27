@@ -21,6 +21,7 @@ import { RoomListComponent } from './room-list/room-list.component';
 import { RoomEditComponent } from './room-edit/room-edit.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ AngularFireDatabaseModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
   ],
-  providers: [MDBSpinningPreloader, AngularFireAuth, AngularFirestore],
+  providers: [MDBSpinningPreloader, AngularFireAuth, AngularFirestore, CanActivateRouteGuard],
   bootstrap: [AppComponent],
   schemas:      [ NO_ERRORS_SCHEMA ]
 })
