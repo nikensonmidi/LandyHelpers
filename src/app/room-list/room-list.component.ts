@@ -9,6 +9,7 @@ import { AngularFireList } from '@angular/fire/database';
 import { RoomService } from '../services/room.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { TIME_FORMAT } from '../globalVariables';
 
 @Component({
   selector: 'app-room-list',
@@ -52,7 +53,7 @@ export class RoomListComponent implements OnInit {
 
       if (!roomExist) {
         const tempRoom: Room = new Room(index);
-        tempRoom.latest = moment().format('DD MMM YYYY');
+        tempRoom.latest = moment().format(TIME_FORMAT);
         tempRooms.push(tempRoom);
       }
     }

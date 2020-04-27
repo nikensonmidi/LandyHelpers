@@ -7,6 +7,7 @@ import { NoteService } from '../services/note.service';
 import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/internal/operators/map';
 import { RoomNote } from '../models/room-note';
+import { TIME_FORMAT } from '../globalVariables';
 
 @Component({
   selector: 'app-room-edit',
@@ -17,6 +18,7 @@ export class RoomEditComponent implements OnInit {
   room: Room;
   notes: Note[];
   roomNotes: RoomNote[];
+  navigationFlags: NavigationFlag[] = [{name: 'note', value: false}];
   constructor(
     private roomService: RoomService,
     private noteService: NoteService,
@@ -62,7 +64,7 @@ export class RoomEditComponent implements OnInit {
 
   saveNote(note: Note) {
     note.name = this.room.roomNumber.toString();
-    note.dateCreated = moment().format('DD MMM YYYY');
+    note.dateCreated = moment().format(TIME_FORMAT);
     this.noteService.saveNote(note).then(n => {
       this.noteService
         .saveRoomNote(this.room.key, n.key)
@@ -76,3 +78,8 @@ export class RoomEditComponent implements OnInit {
     this.notes = this.notes.filter(n => (n !== note));
   }
 }
+
+interface NavigationFlag {
+   name: string;
+   value: boolean;
+ }

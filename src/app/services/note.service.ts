@@ -9,6 +9,7 @@ import { RoomNote } from '../models/room-note';
 import { RoomService } from './room.service';
 import { Room } from '../models/room';
 import * as moment from 'moment';
+import { TIME_FORMAT } from '../globalVariables';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ saveRoomNote(roomId: string, noteId: string) {
   this.roomNote.roomId = roomId;
   //update room latest date modified
   const room = this.roomService.getRoom(roomId);
-  room.update({latest: moment().format('DD MMM YYYY')});
+  room.update({latest: moment().format(TIME_FORMAT)});
   return this.roomNotes$.push(this.roomNote);
 }
   updateNote(note: Note) {
