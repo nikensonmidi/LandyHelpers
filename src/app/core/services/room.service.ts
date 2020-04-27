@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Room } from '../core/models/room';
+import { Room } from '../models/room';
 import {
   AngularFireDatabase,
   AngularFireObject,

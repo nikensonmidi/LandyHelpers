@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Room, RoomsResolved } from '../models/room';
-import { RoomService } from '../services/room.service';
+import { RoomService } from './room.service';
 import { Observable, of} from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 

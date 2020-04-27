@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { not } from '@angular/compiler/src/output/output_ast';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../core/services/auth.service';
 
 
 @Component({

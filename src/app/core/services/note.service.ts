@@ -3,13 +3,13 @@ import {
   AngularFireDatabase,
   AngularFireObject,
   AngularFireList
-} from '@angular/fire/database';
-import { Note } from '../core/models/note';
-import { RoomNote } from '../core/models/room-note';
+} from "@angular/fire/database";
+import { Note } from '../models/note';
+import { RoomNote } from '../models/room-note';
 import { RoomService } from './room.service';
-import { Room } from '../core/models/room';
+import { Room } from '../models/room';
 import * as moment from 'moment';
-import { TIME_FORMAT } from '../globalVariables';
+import { TIME_FORMAT } from '../../globalVariables';
 
 @Injectable({
   providedIn: 'root'

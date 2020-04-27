@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
-import { Room, RoomsResolved } from '../models/room';
-import { Note } from '../models/note';
+import { Room, RoomsResolved } from '../core/models/room';
+import { Note } from '../core/models/note';
 
-import { Supervisor } from '../models/supervisor';
+import { Supervisor } from '../core/models/supervisor';
 import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/operators';
 import { AngularFireList } from '@angular/fire/database';
-import { RoomService } from '../services/room.service';
+import { RoomService } from '../core/services/room.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { TIME_FORMAT } from '../globalVariables';

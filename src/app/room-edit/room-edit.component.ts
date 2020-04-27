@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Room } from '../models/room';
-import { RoomService } from '../services/room.service';
+import { Room } from '../core/models/room';
+import { RoomService } from '../core/services/room.service';
 import { ActivatedRoute } from '@angular/router';
-import { Note } from '../models/note';
-import { NoteService } from '../services/note.service';
+import { Note } from '../core/models/note';
+import { NoteService } from '../core/services/note.service';
 import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/internal/operators/map';
-import { RoomNote } from '../models/room-note';
+import { RoomNote } from '../core/models/room-note';
 import { TIME_FORMAT } from '../globalVariables';
 
 @Component({
