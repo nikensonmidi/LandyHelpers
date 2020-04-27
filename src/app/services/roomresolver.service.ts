@@ -15,7 +15,7 @@ export class RoomsResolver implements Resolve<RoomsResolved> {
   constructor(private roomService: RoomService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RoomsResolved> {
 
-return this.roomService.getRooms().snapshotChanges().pipe(
+const results =  this.roomService.getRooms().snapshotChanges().pipe(
   map(changes =>
    //changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     ({
@@ -29,6 +29,7 @@ return this.roomService.getRooms().snapshotChanges().pipe(
       return of({rooms: null, error: errorMsg});
     })
 );
-
+console.log(results);
+return results;
   }
 }

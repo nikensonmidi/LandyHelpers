@@ -41,7 +41,7 @@ export class RoomListComponent implements OnInit {
   ngOnInit() {
     this.headElements = ['Room', 'Latest', 'Actions'];
     this.rooms = [];
-  //  const resolvedRooms: RoomsResolved = this.route.snapshot.data.rooms;
+   //const resolvedRooms: RoomsResolved = this.route.snapshot.data.rooms;
     this.getRooms();
   }
 
