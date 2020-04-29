@@ -22,6 +22,8 @@ import { RoomEditComponent } from './room-edit/room-edit.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
+import { NotesComponent } from './roomedit/notes/notes.component';
+import { SupervisorsComponent } from './room-edit/supervisors/supervisors.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
     AppNavMenuComponent,
     HomeComponent,
     RoomListComponent,
-    RoomEditComponent
+    RoomEditComponent,
+    NotesComponent,
+    SupervisorsComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
