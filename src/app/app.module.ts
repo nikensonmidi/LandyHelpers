@@ -17,7 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { RoomListComponent } from './room-list/room-list.component';
+
 import { RoomEditComponent } from './room-edit/room-edit.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -30,7 +30,7 @@ import { RoomEditModule } from './room-edit/room-edit.module';
     AppComponent,
     AppNavMenuComponent,
     HomeComponent,
-    RoomListComponent
+
 
   ],
   imports: [

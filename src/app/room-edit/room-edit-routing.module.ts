@@ -6,6 +6,8 @@ import { CanActivateRouteGuard } from '../core/guards/canactivateroute.guard';
 
 const routes: Routes = [
   { path: 'room-edit/:id', component: RoomEditComponent, canActivate: [CanActivateRouteGuard]},
+  { path: '', redirectTo: 'room-edit/:id',  pathMatch: 'full' },
+
 ];
 
 @NgModule({

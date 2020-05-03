@@ -96,6 +96,7 @@ removeRoom(room: Room): void {
 }
 
 getDetail(room: Room): void {
+  debugger
   this.router.navigate(['room-edit', room.key]);
 }
   filterRoomList(filter: string): Room[] {
