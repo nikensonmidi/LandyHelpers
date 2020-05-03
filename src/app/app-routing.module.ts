@@ -11,9 +11,10 @@ import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'room-list', component: RoomListComponent, canActivate: [CanActivateRouteGuard] },
-  { path: 'room-edit/:id', component: RoomEditComponent, canActivate: [CanActivateRouteGuard]},
-];
+  { path: 'rooms', loadChildren: () => import('./rooms/rooms.module').then(m => m.RoomsModule) },
 
+];
+//{ path: 'room-edit/:id', component: RoomEditComponent, canActivate: [CanActivateRouteGuard]},
 @NgModule({
   imports: [CommonModule, RouterModule.forRoot(routes)],
   exports: [RouterModule]

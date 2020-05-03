@@ -22,8 +22,7 @@ import { RoomEditComponent } from './room-edit/room-edit.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
-import { NotesComponent } from './roomedit/notes/notes.component';
-import { SupervisorsComponent } from './room-edit/supervisors/supervisors.component';
+import { RoomEditModule } from './room-edit/room-edit.module';
 
 
 @NgModule({
@@ -31,10 +30,8 @@ import { SupervisorsComponent } from './room-edit/supervisors/supervisors.compon
     AppComponent,
     AppNavMenuComponent,
     HomeComponent,
-    RoomListComponent,
-    RoomEditComponent,
-    NotesComponent,
-    SupervisorsComponent
+    RoomListComponent
+
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -50,6 +47,7 @@ AngularFireDatabaseModule,
       apiKey: 'Your_api_key'
     }),
     AppRoutingModule,
+    RoomEditModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
   ],
