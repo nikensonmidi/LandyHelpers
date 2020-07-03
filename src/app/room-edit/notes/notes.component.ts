@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Room } from '../../core/models/room';
 import { RoomService } from '../../core/services/room.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,8 @@ import { TIME_FORMAT } from '../../globalVariables';
   styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
-  room: Room;
+
+  @Input()room: Room;
   notes: Note[];
   roomNotes: RoomNote[];
   navigationFlags: NavigationFlag[] = [{name: 'note', value: false}];
@@ -27,6 +28,7 @@ export class NotesComponent implements OnInit {
 
   ngOnInit() {
     const key = this.activatedRoute.snapshot.paramMap.get('id');
+    debugger
     this.getRoomNote(key);
   }
   getRoomNote(key: string) {
