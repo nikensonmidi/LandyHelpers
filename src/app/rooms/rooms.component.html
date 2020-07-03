@@ -52,7 +52,7 @@
       <table mdbTable class="z-depth-1" stickyHeader="true">
         <thead class="sticky-top">
           <tr>
-            <th
+            <th class="col-xs-3"
               *ngFor="let head of headElements;"
               scope="col"
             >
@@ -62,14 +62,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let room of filteredRooms;">
-            <th scope="row"> 
+            <th scope="row"  class="col-xs-3">
             {{room.roomNumber}}
             </th>
-            <td >
+            <td  class="col-xs-3">
               {{room.latest }}
 
 
-            <td>
+            <td  class="col-xs-3">
               <a type="button" (click)="getDetail(room)" class="btn-floating indigo"><mdb-icon fas icon="edit"></mdb-icon></a>
               <a type="button" class="btn-floating indigo" (click)="removeRoom(room)" ><mdb-icon fas icon="trash-alt"></mdb-icon></a>
 

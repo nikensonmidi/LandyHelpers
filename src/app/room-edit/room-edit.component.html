@@ -1,4 +1,5 @@
 <div class="container" *ngIf="room">
+  <!-- Top header-->
 <div class="room-edit-header" >
   <div class="section1">
    <a type="button" class="btn-floating btn-elegant"  [routerLink]="['/rooms']"  ><mdb-icon fas icon="angle-left"></mdb-icon></a>
@@ -12,6 +13,26 @@
     <a type="button" class="btn-floating btn-elegant"   ><mdb-icon fas icon="angle-right"></mdb-icon></a>
 
   </div>
+</div>
+<!-- Navi Header-->
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="nav nav-tabs" id="myTab" role="tablist" >
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+          aria-selected="true">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+          aria-selected="false">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+          aria-selected="false">Contact</a>
+      </li>
+    </ul>
+  </div>
+
 </div>
 
 
