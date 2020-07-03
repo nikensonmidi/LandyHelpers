@@ -49,16 +49,20 @@ export class RoomEditComponent implements OnInit {
                 map(changes =>
                   changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
                 )
-              )
-              .subscribe(n => {
-                const noteKeys = this.roomNotes.map(nk => nk.noteId);
-                this.notes = n.filter(o => noteKeys.includes(o.key));
-                this.notes = this.notes.length === 0 ? [new Note()] : this.notes;
-              });
+              ).pipe(
+                map(n => {
+                    const noteKeys = this.roomNotes.map(nk => nk.noteId);
+                    this.notes = n.filter(o => noteKeys.includes(o.key));
+                    this.notes = this.notes.length === 0 ? [new Note()] : this.notes;
+                  }
+                )
+              );
+
           });
       });
   }
   addNote() {
+    // tslint:disable-next-line: no-unused-expression
     this.notes ? this.notes.push(new Note()) : [new Note()];
   }
 
