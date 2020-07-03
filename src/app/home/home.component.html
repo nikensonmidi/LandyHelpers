@@ -4,7 +4,7 @@
 
   <div class="card" *ngIf="auth.userIsAuthenticated() else notlogin" >
     <div class="card-body">
-      <h5 class="card-title animated">Hello {{ auth.user.displayName }} !</h5>
+      <h5 class="card-title animated bounce">Hello {{ auth.user.displayName }} !</h5>
       <p class="card-text">
         Use The left panel for some quick reference.</p>
 

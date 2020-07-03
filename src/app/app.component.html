@@ -29,6 +29,12 @@
       <mdb-accordion [multiple]="false" aria-multiselectable="false">
 
         <div *ngIf="auth.user  as user; else login ">
+          <mdb-accordion-item class="no-collase">
+            <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/']"  >
+              <mdb-icon fas icon="home"></mdb-icon> Home
+            </mdb-accordion-item-head>
+            <mdb-accordion-item-body></mdb-accordion-item-body>
+          </mdb-accordion-item>
           <!-- Room link-->
           <mdb-accordion-item class="no-collase">
             <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/rooms']"  >
@@ -38,13 +44,13 @@
           </mdb-accordion-item>
 
 
-                 <!-- Sign out link-->
-                 <mdb-accordion-item class="no-collase">
-                  <mdb-accordion-item-head mdbWavesEffect (click)="auth.signOut()"  >
-                    <i class="fas fa-angle-double-right"></i> Sign Out
-                  </mdb-accordion-item-head>
-                  <mdb-accordion-item-body></mdb-accordion-item-body>
-                </mdb-accordion-item>
+                  <!-- Sign out link-->
+                  <mdb-accordion-item class="no-collase">
+                    <mdb-accordion-item-head mdbWavesEffect (click)="auth.signOut()"  >
+                      <i class="fas fa-angle-double-right"></i> Sign Out
+                    </mdb-accordion-item-head>
+                    <mdb-accordion-item-body></mdb-accordion-item-body>
+                  </mdb-accordion-item>
 
 
 
