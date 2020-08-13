@@ -22,9 +22,13 @@ export class RoomEditComponent implements OnInit {
 
   setRoom(key: string): void {
 this.roomService.getRoom(key).valueChanges().subscribe({
-  next: r =>
-  this.room = r as Room
-}
+  next: r =>{
+    this.room = r as Room;
+    this.roomService.currentRoom = this.room;
+    this.roomService.currentRoom.key = key;
+  }
+  }
+
   );
 
   }

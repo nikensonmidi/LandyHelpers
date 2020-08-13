@@ -17,7 +17,7 @@ import { TIME_FORMAT } from '../../globalVariables';
 })
 export class NotesComponent implements OnInit {
 
-  @Input()room: Room;
+
   notes: Note[];
   roomNotes: RoomNote[];
   navigationFlags: NavigationFlag[] = [{name: 'note', value: false}];
@@ -27,41 +27,34 @@ export class NotesComponent implements OnInit {
       private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    const key = this.activatedRoute.snapshot.paramMap.get('id');
-    debugger
-    this.getRoomNote(key);
+    this.getRoomNotes(this.roomService.currentRoom);
   }
-  getRoomNote(key: string) {
-    this.roomService
-      .getRoom(key)
-      .valueChanges()
-      .subscribe(r => {
-        this.room = r as Room;
-        this.room.key = key;
-        this.noteService
-          .getRoomNotes(key)
-          .valueChanges()
-          .subscribe(rnotes => {
-            this.roomNotes = rnotes as RoomNote[];
-            this.notes = this.notes ? this.notes : [new Note()];
-            this.noteService
-              .getNotes()
-              .snapshotChanges()
-              .pipe(
-                map(changes =>
-                  changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-                )
-              ).pipe(
-                map(n => {
-                    const noteKeys = this.roomNotes.map(nk => nk.noteId);
-                    this.notes = n.filter(o => noteKeys.includes(o.key));
-                    this.notes = this.notes.length === 0 ? [new Note()] : this.notes;
-                  }
-                )
-              );
+  getRoomNotes(room: Room) {
+debugger
+    this.noteService
+    .getRoomNotes(room.key)
+    .valueChanges()
+    .subscribe(rnotes => {
+      this.roomNotes = rnotes as RoomNote[];
+      this.notes = this.roomNotes.length === 0 ? [new Note()] : this.notes;
+      this.noteService
+        .getNotes()
+        .snapshotChanges()
+        .pipe(
+          map(changes =>
+            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+          )
+        ).pipe(
+          map(n => {
+              const noteKeys = this.roomNotes.map(nk => nk.noteId);
+              this.notes = n.filter(o => noteKeys.includes(o.key));
+              this.notes = this.notes.length === 0 ? [new Note()] : this.notes;
+            }
+          )
+        );
 
-          });
-      });
+    });
+
   }
   addNote() {
     // tslint:disable-next-line: no-unused-expression
@@ -69,11 +62,14 @@ export class NotesComponent implements OnInit {
   }
 
   saveNote(note: Note) {
-    note.name = this.room.roomNumber.toString();
+
+    const room = this.roomService.currentRoom;
+    note.name = room.roomNumber.toString();
     note.dateCreated = moment().format(TIME_FORMAT);
+
     this.noteService.saveNote(note).then(n => {
       this.noteService
-        .saveRoomNote(this.room.key, n.key)
+        .saveRoomNote(room.key, n.key)
         .then(result => console.log(result));
     });
   }

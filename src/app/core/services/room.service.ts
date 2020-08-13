@@ -14,7 +14,7 @@ import { switchMap } from 'rxjs/operators';
 export class RoomService {
   rooms$: AngularFireList<Room>;
   subject$ = new BehaviorSubject<string>(undefined);
-
+ currentRoom: Room;
   constructor(private db: AngularFireDatabase) {
     this.rooms$ = this.db.list('rooms');
   }

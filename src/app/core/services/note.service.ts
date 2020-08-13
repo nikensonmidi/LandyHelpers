@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   AngularFireDatabase,
   AngularFireObject,
-  AngularFireList
+  AngularFireList,
+  snapshotChanges
 } from "@angular/fire/database";
 import { Note } from '../models/note';
 import { RoomNote } from '../models/room-note';
@@ -10,6 +11,7 @@ import { RoomService } from './room.service';
 import { Room } from '../models/room';
 import * as moment from 'moment';
 import { TIME_FORMAT } from '../../globalVariables';
+import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +30,11 @@ export class NoteService {
   getNotes(): AngularFireList<Note> {
 return this.notes$;
   }
-getNote(key: string){
+
+getNote(key: string) {
   return this.db.object(`notes/${key}`);
 }
+
 getRoomNotes(roomId: string) {
 return this.db.list('roomNotes', ref => ref.orderByChild('roomId').equalTo(roomId));
 }
