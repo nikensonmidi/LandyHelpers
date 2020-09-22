@@ -18,18 +18,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 
-import { RoomEditComponent } from './room-edit/room-edit.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
 import { RoomEditModule } from './room-edit/room-edit.module';
+import { EditDialogComponent } from './room-edit/edit-dialog/edit-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppNavMenuComponent,
-    HomeComponent,
+    HomeComponent
 
 
   ],
@@ -53,6 +53,7 @@ AngularFireDatabaseModule,
   ],
   providers: [MDBSpinningPreloader, AngularFireAuth, AngularFirestore, CanActivateRouteGuard],
   bootstrap: [AppComponent],
-  schemas:      [ NO_ERRORS_SCHEMA ]
+  schemas:      [ NO_ERRORS_SCHEMA ],
+  entryComponents: [EditDialogComponent]
 })
 export class AppModule { }

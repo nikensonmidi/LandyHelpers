@@ -8,9 +8,8 @@ describe('RoomsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoomsComponent ]
-    })
-    .compileComponents();
+      declarations: [RoomsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +20,19 @@ describe('RoomsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should Filter list to room 3', () => {
+    component.searchText = '3';
+    const listHasRoomNumberThree = component.filteredRooms.some(
+      (room) => room.roomNumber === 3
+    );
+    const listHasOnlyOneRoom = component.filteredRooms.length === 1;
+
+    expect(listHasOnlyOneRoom && listHasRoomNumberThree).toBe(true);
+  });
+  it('should not Filter list', () => {
+    component.searchText = '';
+    const listHasMoreThanOne = component.filteredRooms.length > 1;
+    expect(listHasMoreThanOne).toBe(true);
   });
 });

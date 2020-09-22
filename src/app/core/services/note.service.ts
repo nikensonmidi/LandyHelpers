@@ -4,7 +4,7 @@ import {
   AngularFireObject,
   AngularFireList,
   snapshotChanges
-} from "@angular/fire/database";
+} from '@angular/fire/database';
 import { Note } from '../models/note';
 import { RoomNote } from '../models/room-note';
 import { RoomService } from './room.service';
@@ -41,7 +41,7 @@ return this.db.list('roomNotes', ref => ref.orderByChild('roomId').equalTo(roomI
 saveRoomNote(roomId: string, noteId: string) {
   this.roomNote.noteId = noteId;
   this.roomNote.roomId = roomId;
-  //update room latest date modified
+  // update room latest date modified
   const room = this.roomService.getRoom(roomId);
   room.update({latest: moment().format(TIME_FORMAT)});
   return this.roomNotes$.push(this.roomNote);

@@ -1,0 +1,18 @@
+
+
+.edit.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px 0px;
+  grid-template-areas:
+    "comments"
+    "supervisors";
+}
+
+.comments { grid-area: one; }
+
+.supervisors { grid-area: two; }
+.edit-grid-container .btn{
+  width:15vw;
+}
