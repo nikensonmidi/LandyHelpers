@@ -115,7 +115,7 @@ export class RoomsComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = room;
 
-    const dialogRef = this.dialog.open(EditDialogComponent, dialogConfig);
+    this.dialog.open(EditDialogComponent, dialogConfig);
   }
   filterRoomList(filter: string): SelectedRoom[] {
     return this.rooms.filter((r) => {

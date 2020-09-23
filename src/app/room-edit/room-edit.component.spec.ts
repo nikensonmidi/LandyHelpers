@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 
 import { RoomEditComponent } from './room-edit.component';
 
@@ -8,7 +9,8 @@ describe('RoomEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoomEditComponent ]
+      declarations: [ RoomEditComponent ],
+      imports: [RouterModule]
     })
     .compileComponents();
   }));
