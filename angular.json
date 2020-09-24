@@ -148,5 +148,8 @@
       }
     }
   },
-  "defaultProject": "landyhelpers"
+  "defaultProject": "landyhelpers",
+  "cli": {
+    "analytics": "7cf8cad7-80f4-4f61-8b45-cf6de1851eb0"
+  }
 }
