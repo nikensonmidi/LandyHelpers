@@ -38,7 +38,7 @@
     "moment": "^2.29.0",
     "ng-uikit-pro-standard": "file:ng-uikit-pro-standard-8.8.2.tgz",
     "ngx-auth-firebaseui": "^3.5.0",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.6.3",
     "screenfull": "3.3.x",
     "tslib": "^1.13.0",
     "write-json": "^3.0.1",
