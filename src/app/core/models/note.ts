@@ -3,8 +3,9 @@ import { Supervisor } from './supervisor';
 export class Note {
   key: string;
   name: string;
-  content: string;
+  content?: string;
   dateCreated: string;
-  supervisors: string[];
+  roomid: string;
+
 
 }

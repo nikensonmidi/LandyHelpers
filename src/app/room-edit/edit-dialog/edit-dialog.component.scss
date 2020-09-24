@@ -1,18 +1,42 @@
 
 
 .edit.grid-container {
+
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2, 1fr);
-  gap: 20px 0px;
+  row-gap: 20px;
   grid-template-areas:
     "comments"
     "supervisors";
+
 }
 
-.comments { grid-area: one; }
+.comments {
+  text-align: center;
+  grid-area: one;
+}
 
-.supervisors { grid-area: two; }
+.supervisors {
+  text-align: center;
+  grid-area: two;
+ }
+ 
 .edit-grid-container .btn{
-  width:15vw;
+  width:80%;
 }
+
+
+.center-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1px 10px;
+  grid-template-areas:
+    "Left-area center-area right-area";
+}
+.Left-area { grid-area: Left-area; }
+.center-area {
+text-align: center;
+   grid-area: center-area; }
+.right-area { grid-area: right-area; }

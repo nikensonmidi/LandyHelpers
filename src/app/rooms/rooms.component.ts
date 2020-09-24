@@ -114,6 +114,7 @@ export class RoomsComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.data = room;
+    dialogConfig.width = '100vw';
 
     this.dialog.open(EditDialogComponent, dialogConfig);
   }

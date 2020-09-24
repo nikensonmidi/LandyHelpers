@@ -25,7 +25,8 @@
   <li>
     <ul class="collapsible collapsible-accordion">
       <mdb-accordion [multiple]="false" aria-multiselectable="false">
-        <div *ngIf="auth.user as user; else login">
+        <!--  *ngIf="auth.user as user; else login"-->
+        <div   >
           <mdb-accordion-item class="no-collase">
             <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/']">
               <mdb-icon fas icon="home"></mdb-icon> Home
