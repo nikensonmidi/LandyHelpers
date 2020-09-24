@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { RoomCommentModule } from '../room-comment/room-comment.module';
 import { RoomCommentComponent } from '../room-comment/room-comment.component';
 
 

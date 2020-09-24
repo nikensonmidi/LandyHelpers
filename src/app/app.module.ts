@@ -21,8 +21,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
 import { RoomEditModule } from './room-edit/room-edit.module';
 import { EditDialogComponent } from './room-edit/edit-dialog/edit-dialog.component';
@@ -36,6 +36,8 @@ import { EditDialogComponent } from './room-edit/edit-dialog/edit-dialog.compone
     FormsModule,
     HttpClientModule,
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     ToastModule.forRoot(),
     MDBBootstrapModulesPro.forRoot(),
     AgmCoreModule.forRoot({

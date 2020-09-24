@@ -11,7 +11,7 @@ import {
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [RoomCommentComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RoomCommentRoutingModule,

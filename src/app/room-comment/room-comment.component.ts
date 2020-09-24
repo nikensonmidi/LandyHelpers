@@ -12,7 +12,6 @@ import { NoteService } from '../core/services/note.service';
 import * as moment from 'node_modules/moment';
 import { map } from 'rxjs/operators';
 import { TIME_FORMAT } from '../globalVariables';
-import { IMyOptions } from 'ng-uikit-pro-standard/lib/pro/date-picker';
 
 @Component({
   selector: 'app-room-comment',
@@ -35,9 +34,7 @@ export class RoomCommentComponent implements OnInit {
       : this.roomNotes;
   }
 
-  public myDatePickerOptions: IMyOptions = {
-    // Your options
-    };
+
 
   constructor(private noteServices: NoteService) {}
 
