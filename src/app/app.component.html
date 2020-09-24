@@ -26,7 +26,7 @@
     <ul class="collapsible collapsible-accordion">
       <mdb-accordion [multiple]="false" aria-multiselectable="false">
         <!--  *ngIf="auth.user as user; else login"-->
-        <div   >
+        <div    *ngIf="auth.user as user; else login">
           <mdb-accordion-item class="no-collase">
             <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/']">
               <mdb-icon fas icon="home"></mdb-icon> Home
@@ -60,6 +60,17 @@
               <i class="fab fa-google"></i>
             </mdb-accordion-item-head>
           </mdb-accordion-item>
+
+          <mdb-accordion-item class="no-collase">
+            <mdb-accordion-item-head
+              mdbWavesEffect
+              (click)="auth.emailSignin()"
+            >
+              <i class="fas fa-angle-double-right"></i> Sign In with email
+
+            </mdb-accordion-item-head>
+          </mdb-accordion-item>
+
         </ng-template>
       </mdb-accordion>
     </ul>

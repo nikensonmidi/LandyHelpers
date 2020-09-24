@@ -40,7 +40,14 @@ user: User;
     this.setSessionLogin(true);
     return this.updateUserData(credential.user);
   }
+  async emailSignin() {
+    const provider = new auth.EmailAuthProvider();
 
+    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    this.user = credential.user;
+    this.setSessionLogin(true);
+    return this.updateUserData(credential.user);
+  }
   private setSessionLogin(isLogin: boolean) {
     const loginState = isLogin ? 'true' : 'false';
     sessionStorage.setItem('islogin', loginState);

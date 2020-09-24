@@ -26,6 +26,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
 import { RoomEditModule } from './room-edit/room-edit.module';
 import { EditDialogComponent } from './room-edit/edit-dialog/edit-dialog.component';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 @NgModule({
   declarations: [AppComponent, AppNavMenuComponent, HomeComponent],
@@ -50,11 +51,10 @@ import { EditDialogComponent } from './room-edit/edit-dialog/edit-dialog.compone
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase),
   ],
   providers: [
     MDBSpinningPreloader,
-    AngularFireAuth,
-    AngularFirestore,
     CanActivateRouteGuard,
   ],
   bootstrap: [AppComponent],
