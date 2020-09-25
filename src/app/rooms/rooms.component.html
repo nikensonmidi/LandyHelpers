@@ -54,7 +54,7 @@
   <!-- Action btns-->
   <div class="row">
     <div class="col-md-2 my-2">
-      <button class="btn blue-gradient" (click)="removeRooms()">
+      <button class="btn blue-gradient" (click)="removeRooms()" [disabled] = "deleteAllBtnDisabled">
         Delete Selected
       </button>
     </div>
@@ -98,7 +98,7 @@
         </td>
 
         <td class="col-xs-3 col-table">
-          <mdb-checkbox [(ngModel)]="room.selected"></mdb-checkbox>
+          <mdb-checkbox (change)="onRowSelected()" [(ngModel)]="room.selected"></mdb-checkbox>
         </td>
       </tr>
     </tbody>

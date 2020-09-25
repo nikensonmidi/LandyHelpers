@@ -27,6 +27,7 @@ export class RoomsComponent implements OnInit {
   from: number;
   to: number;
   filteredRooms: SelectedRoom[];
+  deleteAllBtnDisabled = 'disabled';
 
   private _searchText: string;
   public get searchText(): string {
@@ -108,7 +109,8 @@ export class RoomsComponent implements OnInit {
   }
   removeRooms(): void {
     // Be able to remove all the rooms at once from the select all
-    console.log(this.filteredRooms.filter((r) => r.selected));
+    const selectedRooms = this.filteredRooms.filter((r) => r.selected);
+    selectedRooms.forEach(r => { this.removeRoom(r); });
   }
 
   getDetail(room: Room): void {
@@ -131,6 +133,12 @@ export class RoomsComponent implements OnInit {
       );
     }) as SelectedRoom[];
   }
+
+  onRowSelected() {
+    const isEnable = this.filteredRooms.some((r) => r.selected);
+this.deleteAllBtnDisabled = isEnable?'':'disabled';
+  }
+
   private handleError(error: any) {
     const errlog: ErrorLog = {
       name: 'RoomsComponent',

@@ -51,11 +51,17 @@ export class NoteService {
     room.update({ latest: moment().format(TIME_FORMAT) });
     return this.notes$.push(note).catch((error) => this.handleError(error));
   }
-  private handleError(error: ErrorLog) {
-    error.origin = NoteService.name;
-    error.dateCreated =new Date().toString();
+  private handleError(error) {
+    const errlog: ErrorLog = {
+      name: 'NoteService',
+      dateCreated: new Date().toString(),
+      fileName: error.fileName,
+      lineNumber: error.lineNumber,
+      message: error.message,
+    };
+
     if (this.errorLog) {
-      this.errorLog.logError(error);
+      this.errorLog.logError(errlog);
     }
   }
 }
