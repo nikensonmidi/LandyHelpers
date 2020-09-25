@@ -35,7 +35,7 @@ user: User;
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     // const provider = new auth.EmailAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
     this.user = credential.user;
     this.setSessionLogin(true);
     return this.updateUserData(credential.user);
@@ -43,7 +43,7 @@ user: User;
   async emailSignin() {
     const provider = new auth.EmailAuthProvider();
 
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
     this.user = credential.user;
     this.setSessionLogin(true);
     return this.updateUserData(credential.user);
@@ -56,7 +56,7 @@ user: User;
   }
 
   async signOut() {
-    await this.afAuth.auth.signOut();
+    await this.afAuth.signOut();
     this.user = null;
     this.setSessionLogin(false);
     return this.router.navigate(['/']);
