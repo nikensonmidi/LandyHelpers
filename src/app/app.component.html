@@ -3,10 +3,19 @@
   SideClass="navbar navbar-expand-lg navbar-dark indigo"
   style="height: 300px"
 >
-  <mdb-navbar-brand>
-    <a (click)="sidenav.toggle()" mdbBtn
-      ><mdb-icon fas icon="bars"></mdb-icon
-    ></a>
+  <mdb-navbar-brand class="navbar-brand-fill">
+    <div class="nav-grid-container">
+      <div class="settings">
+        <a (click)="sidenav.toggle()" mdbBtn
+          ><mdb-icon fas icon="bars"></mdb-icon
+        ></a>
+      </div>
+      <div class="home">
+        <a [routerLink]="['/']" class="float-right" mdbBtn
+          ><mdb-icon fas icon="home"></mdb-icon
+        ></a>
+      </div>
+    </div>
   </mdb-navbar-brand>
 </mdb-navbar>
 <router-outlet></router-outlet>
@@ -16,7 +25,7 @@
   <!-- Logo -->
   <li>
     <div class="logo-wrapper waves-light text-center">
-      <h3>{{title}}</h3>
+      <h3>{{ title }}</h3>
     </div>
   </li>
   <!--/. Logo -->
@@ -26,13 +35,7 @@
     <ul class="collapsible collapsible-accordion">
       <mdb-accordion [multiple]="false" aria-multiselectable="false">
         <!--  *ngIf="auth.user as user; else login"-->
-        <div    *ngIf="auth.user as user; else login">
-          <mdb-accordion-item class="no-collase">
-            <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/']">
-              <mdb-icon fas icon="home"></mdb-icon> Home
-            </mdb-accordion-item-head>
-            <mdb-accordion-item-body></mdb-accordion-item-body>
-          </mdb-accordion-item>
+        <div *ngIf="auth.user as user; else login">
           <!-- Room link-->
           <mdb-accordion-item class="no-collase">
             <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/rooms']">
@@ -60,17 +63,6 @@
               <i class="fab fa-google"></i>
             </mdb-accordion-item-head>
           </mdb-accordion-item>
-
-          <mdb-accordion-item class="no-collase">
-            <mdb-accordion-item-head
-              mdbWavesEffect
-              (click)="auth.emailSignin()"
-            >
-              <i class="fas fa-angle-double-right"></i> Sign In with email
-
-            </mdb-accordion-item-head>
-          </mdb-accordion-item>
-
         </ng-template>
       </mdb-accordion>
     </ul>

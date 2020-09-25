@@ -9,7 +9,7 @@ import { RoomService } from '../core/services/room.service';
 import { Router } from '@angular/router';
 import { TIME_FORMAT } from '../globalVariables';
 import { SelectedRoom } from '../core/models/selectedRoom';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditDialogComponent } from '../room-edit/edit-dialog/edit-dialog.component';
 
 
