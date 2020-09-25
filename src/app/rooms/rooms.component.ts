@@ -11,6 +11,9 @@ import { TIME_FORMAT } from '../globalVariables';
 import { SelectedRoom } from '../core/models/selectedRoom';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditDialogComponent } from '../room-edit/edit-dialog/edit-dialog.component';
+import { ErrorLogService } from '../core/services/error-log.service';
+import { ErrorLog } from '../core/models/error-log';
+import { debug } from 'console';
 
 
 @Component({
@@ -38,7 +41,8 @@ export class RoomsComponent implements OnInit {
   constructor(
     private router: Router,
     private roomService: RoomService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private errorLogService?: ErrorLogService
   ) {}
 
   ngOnInit() {
@@ -100,9 +104,10 @@ export class RoomsComponent implements OnInit {
   removeRoom(room: Room): void {
     this.roomService.removeRoom(room).then((_) => {
       window.scrollTo(0, 0);
-    });
+    }).catch(err => this.handleError);
   }
   removeRooms(): void {
+    // Be able to remove all the rooms at once from the select all
     console.log(this.filteredRooms.filter((r) => r.selected));
   }
 
@@ -126,4 +131,18 @@ export class RoomsComponent implements OnInit {
       );
     }) as SelectedRoom[];
   }
+  private handleError(error: any) {
+    const errlog: ErrorLog = {
+      name: 'RoomsComponent',
+      dateCreated: new Date().toString(),
+      fileName: error.fileName,
+      lineNumber: error.lineNumber,
+      message: error.message,
+    };
+
+    if (this.errorLogService) {
+      this.errorLogService.logError(errlog);
+    }
+  }
+
 }

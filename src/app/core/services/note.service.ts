@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFireDatabase,
-  AngularFireList,
-
-} from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Note } from '../models/note';
-import { RoomNote } from '../models/room-note';
 import { RoomService } from './room.service';
 import * as moment from 'moment';
 import { TIME_FORMAT } from '../../globalVariables';
 
+import { ErrorLogService } from './error-log.service';
+import { ErrorLog } from '../models/error-log';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NoteService {
   notes$: AngularFireList<Note>;
-  roomNotes$: AngularFireList<RoomNote>;
-  roomNote: RoomNote;
+
   constructor(
     private db: AngularFireDatabase,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private errorLog?: ErrorLogService
   ) {
     this.notes$ = this.db.list('notes');
-    this.roomNote = new RoomNote();
   }
 
   getNotes(): AngularFireList<Note> {
@@ -39,21 +35,27 @@ export class NoteService {
       ref.orderByChild('roomid').equalTo(roomId)
     );
   }
-  saveRoomNote(roomId: string, noteId: string) {
-    this.roomNote.noteId = noteId;
-    this.roomNote.roomId = roomId;
-    // update room latest date modified
-    const room = this.roomService.getRoom(roomId);
-    room.update({ latest: moment().format(TIME_FORMAT) });
-    return this.roomNotes$.push(this.roomNote);
-  }
+
   updateNote(note: Note) {
-    return this.notes$.update(note.key, note);
+    return this.notes$
+      .update(note.key, note)
+      .catch((error) => this.handleError(error));
   }
   deleteNote(note: Note) {
-    return this.notes$.remove(note.key);
+    return this.notes$
+      .remove(note.key)
+      .catch((error) => this.handleError(error));
   }
   saveNote(note: Note) {
-    return this.notes$.push(note);
+    const room = this.roomService.getRoom(note.roomid);
+    room.update({ latest: moment().format(TIME_FORMAT) });
+    return this.notes$.push(note).catch((error) => this.handleError(error));
+  }
+  private handleError(error: ErrorLog) {
+    error.origin = NoteService.name;
+    error.dateCreated =new Date().toString();
+    if (this.errorLog) {
+      this.errorLog.logError(error);
+    }
   }
 }

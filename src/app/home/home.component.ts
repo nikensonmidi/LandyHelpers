@@ -6,6 +6,11 @@ import { Modules } from '../shared/appTypes';
 import { Router } from '@angular/router';
 import { AppAssetsService } from '../core/services/app-assets.service';
 import { AppAsset } from '../core/models/app-asset';
+import { ErrorLogService } from '../core/services/error-log.service';
+import { ErrorLog } from '../core/models/error-log';
+import { catchError } from 'rxjs/operators';
+import { error } from 'protractor';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -22,21 +27,28 @@ export class HomeComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private assetService: AppAssetsService,
-    private router: Router
+    private router: Router,
+    private errorLogService?: ErrorLogService
   ) {}
 
   ngOnInit() {
     this.provider = AuthProvider.EmailAndPassword;
-    // using destructuring to get the element from an array
-    // let [firstElem] = array
-    this.assetService
-      .getAppAsset('room-module-pic')
-      .valueChanges()
-      .subscribe((data) => {
-        const [firstElem] = data;
-        this.asset = firstElem as AppAsset;
-
-      });
+    try {
+      // using destructuring to get the element from an array
+      // let [firstElem] = array
+      this.assetService
+        .getAppAsset('room-module-pic')
+        .valueChanges()
+        .subscribe(
+          (data) => {
+            const [firstElem] = data;
+            this.asset = firstElem as AppAsset;
+          },
+          (error) => this.handleError
+        );
+    } catch (error) {
+      this.handleError(error);
+    }
   }
 
   login(event) {
@@ -49,5 +61,19 @@ export class HomeComponent implements OnInit {
 
   redirectToModule(module: Modules) {
     this.router.navigate([module]);
+  }
+
+  private handleError(error: any) {
+    const errlog: ErrorLog = {
+      name: 'HomeComponent',
+      dateCreated: new Date().toString(),
+      fileName: error.fileName,
+      lineNumber: error.lineNumber,
+      message: error.message,
+    };
+
+    if (this.errorLogService) {
+      this.errorLogService.logError(errlog);
+    }
   }
 }

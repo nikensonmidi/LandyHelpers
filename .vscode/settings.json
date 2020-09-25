@@ -1,0 +1,8 @@
+{
+    "editor.cursorStyle": "line-thin",
+    "editor.wordWrap": "on",
+    "files.exclude": {
+        "dist": true,
+        "node_modules": true
+    }
+}

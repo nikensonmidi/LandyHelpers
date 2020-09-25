@@ -10,8 +10,10 @@ import { Note } from '../core/models/note';
 import { SelectedRoom } from '../core/models/selectedRoom';
 import { NoteService } from '../core/services/note.service';
 import * as moment from 'node_modules/moment';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { TIME_FORMAT } from '../globalVariables';
+import { ErrorLog } from '../core/models/error-log';
+import { ErrorLogService } from '../core/services/error-log.service';
 
 @Component({
   selector: 'app-room-comment',
@@ -36,7 +38,7 @@ export class RoomCommentComponent implements OnInit {
 
 
 
-  constructor(private noteServices: NoteService) {}
+  constructor(private noteServices: NoteService, private errorLogService?: ErrorLogService) {}
 
   ngOnInit() {
     this.getRoomNotes();
@@ -49,7 +51,8 @@ export class RoomCommentComponent implements OnInit {
       .pipe(
         map((changes) =>
           changes.map((c) => ({ key: c.key, ...c.payload.val() }))
-        )
+        ),
+        catchError(err => this.handleError)
       )
       .subscribe((n) => {
         this.roomNotes = n as Note[];
@@ -71,14 +74,13 @@ export class RoomCommentComponent implements OnInit {
       note.name = '';
       note.dateCreated = moment().format(TIME_FORMAT);
       this.noteServices.saveNote(note).then(() => {
-        debugger;
 
         if (this.cardref.last) {
           const lastCard: HTMLElement = this.cardref.last
             .nativeElement as HTMLElement;
           lastCard.scrollIntoView();
         }
-      });
+      }).catch(err => this.handleError);
     }
   }
 
@@ -94,7 +96,7 @@ export class RoomCommentComponent implements OnInit {
       .split(' ')
       .filter((word, index) => index < 20)
       .join(' ');
-    this.noteServices.updateNote(note);
+    this.noteServices.updateNote(note).catch(err => this.handleError);
   }
   filterNotesByContent(search: string): Note[] {
     return this.roomNotes.filter((r) => r.content.includes(search));
@@ -103,5 +105,19 @@ export class RoomCommentComponent implements OnInit {
     return this.roomNotes.filter((r) =>
       moment(r.dateCreated).isBetween(from, to)
     );
+  }
+
+  private handleError(error: any) {
+    const errlog: ErrorLog = {
+      name: 'RoomCommentComponent',
+      dateCreated: new Date().toString(),
+      fileName: error.fileName,
+      lineNumber: error.lineNumber,
+      message: error.message,
+    };
+
+    if (this.errorLogService) {
+      this.errorLogService.logError(errlog);
+    }
   }
 }
