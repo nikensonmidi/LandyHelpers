@@ -44,14 +44,14 @@ export class HomeComponent implements OnInit {
             const [firstElem] = data;
             this.asset = firstElem as AppAsset;
           },
-          (error) => this.handleError
+          (error) => { this.handleError(error);}
         );
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  login(event) {
+  onLoggedIn(event) {
     this.auth.user = {
       uid: event.uid,
       displayName: event.displayName,

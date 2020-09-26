@@ -8,7 +8,7 @@
         <div class="card-title">Rooms</div>
         <div class="card-body">
           <mdb-card-img
-            src="{{ asset.url}}"
+            [src]="asset.url"
             alt="Card image cap"
           ></mdb-card-img>
         </div>
@@ -31,7 +31,7 @@
           [orLabelText]="orLabelText"
           [guestEnabled]="false"
           [registrationEnabled]="false"
-          (onSuccess)="login($event)"
+          (onSuccess)="onLoggedIn($event)"
           [providers]="provider"
         ></ngx-auth-firebaseui-login>
       </div>
