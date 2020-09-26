@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Room } from '../core/models/room';
 
 import * as moment from 'node_modules/moment';
-import { map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { RoomService } from '../core/services/room.service';
 
@@ -13,8 +13,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditDialogComponent } from '../room-edit/edit-dialog/edit-dialog.component';
 import { ErrorLogService } from '../core/services/error-log.service';
 import { ErrorLog } from '../core/models/error-log';
-import { debug } from 'console';
-
+import { Observable, of } from 'rxjs';
+import { AgGridAngular } from 'ag-grid-angular';
+import { RoomGridActionsComponent } from './room-actions/room-grid-actions/room-grid-actions.component';
 
 @Component({
   selector: 'app-rooms',
@@ -22,23 +23,33 @@ import { debug } from 'console';
   styleUrls: ['./rooms.component.scss'],
 })
 export class RoomsComponent implements OnInit {
+  @ViewChild('roomGrid') roomGrid: AgGridAngular;
+  columnDefs = [
+    {
+      headerName: 'Room Number',
+      field: 'roomNumber',
+      sortable: true,
+      filter: true,
+    },
+    { headerName: 'Latest', field: 'latest', sortable: true, filter: true },
+    { headerName: 'Selection', checkboxSelection: true },
+    { headerName: 'Action', cellRendererFramework: RoomGridActionsComponent, },
+  ];
+
+  gridApi;
+  gridColumnApi;
+  rowSelection: string;
+  selectedRooms: SelectedRoom[];
+
+  //  end of new grid setup
   headElements: string[];
   rooms: Room[];
   from: number;
   to: number;
-  filteredRooms: SelectedRoom[];
-  deleteAllBtnDisabled = 'disabled';
+  filteredRooms: Observable<SelectedRoom[]>;
+  deleteAllBtnDisabled: Observable<'' | 'disabled'>;
 
-  private _searchText: string;
-  public get searchText(): string {
-    return this._searchText;
-  }
-  public set searchText(value: string) {
-    this._searchText = value;
-    this.filteredRooms = this._searchText
-      ? this.filterRoomList(this._searchText)
-      : (this.rooms as SelectedRoom[]);
-  }
+
   constructor(
     private router: Router,
     private roomService: RoomService,
@@ -47,7 +58,7 @@ export class RoomsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.headElements = ['Room', 'Latest', 'Action', 'Selections'];
+    // this.headElements = ['Room', 'Latest', 'Action', 'Selections'];
     this.rooms = [];
 
     // const resolvedRooms: RoomsResolved = this.route.snapshot.data.rooms;
@@ -62,7 +73,10 @@ export class RoomsComponent implements OnInit {
       { length: to },
       (x, index) => index + from
     )
-      .filter((generated) => this.rooms.filter((r) => r.roomNumber === generated).length === 0)
+      .filter(
+        (generated) =>
+          this.rooms.filter((r) => r.roomNumber === generated).length === 0
+      )
       .map((generated) => {
         const tempRoom: Room = new Room(generated);
         tempRoom.latest = moment().format(TIME_FORMAT);
@@ -75,69 +89,74 @@ export class RoomsComponent implements OnInit {
   }
 
   getRooms(): void {
-    this.roomService
+    this.filteredRooms = this.roomService
       .getRooms()
       .snapshotChanges()
       .pipe(
         map((changes) =>
-          changes.map((c) => ({
-            key: c.payload.key,
-            selected: false,
-            ...c.payload.val(),
-          }))
+          changes.map(
+            (c) =>
+              ({
+                key: c.payload.key,
+                selected: false,
+                ...c.payload.val(),
+              } as SelectedRoom)
+          )
+        ),
+        tap(
+          (rooms) =>
+            (this.deleteAllBtnDisabled = rooms.some((r) => r.selected)
+              ? of('')
+              : of('disabled'))
         )
-      )
-      .subscribe((r) => {
-        this.rooms = r.sort((prev, next) => {
-          if (prev.roomNumber > next.roomNumber) {
-            return 1;
-          }
-          if (prev.roomNumber < next.roomNumber) {
-            return -1;
-          }
-          return 0;
-        });
-
-        this.filteredRooms = this.rooms as SelectedRoom[];
-      });
+      );
   }
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.rowSelection = 'single';
+    params.api.sizeColumnsToFit();
+    window.addEventListener('resize', () => {
+      setTimeout(() => {
+        params.api.sizeColumnsToFit();
+      });
+    });
+
+    params.api.sizeColumnsToFit();
+  }
+  onRecordSelected() {
+    const selectedNodes = this.roomGrid.api.getSelectedNodes();
+    this.selectedRooms = selectedNodes.map((node) => node.data);
+
+    this.deleteAllBtnDisabled =
+      this.selectedRooms.length > 0 ? of('') : of('disabled');
+  }
+
 
   removeRoom(room: Room): void {
-    this.roomService.removeRoom(room).then((_) => {
-      window.scrollTo(0, 0);
-    }).catch(err => this.handleError);
+    this.roomService
+      .removeRoom(room)
+      .then((_) => {
+        window.scrollTo(0, 0);
+      })
+      .catch((err) => this.handleError);
   }
   removeRooms(): void {
-    // Be able to remove all the rooms at once from the select all
-    const selectedRooms = this.filteredRooms.filter((r) => r.selected);
-    selectedRooms.forEach(r => { this.removeRoom(r); });
+    this.selectedRooms.forEach((r) => this.removeRoom(r));
   }
 
   getDetail(room: Room): void {
     this.router.navigate(['room-edit', room.key]);
   }
-  getRoomActions(room: SelectedRoom): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = room;
-    dialogConfig.width = '100vw';
+  // getRoomActions(room: SelectedRoom): void {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = false;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.data = room;
+  //   dialogConfig.width = '100vw';
 
-    this.dialog.open(EditDialogComponent, dialogConfig);
-  }
-  filterRoomList(filter: string): SelectedRoom[] {
-    return this.rooms.filter((r) => {
-      return (
-        r.roomNumber.toString().includes(filter.toLowerCase().trim()) ||
-        r.latest.toLowerCase().trim().includes(filter.toLowerCase().trim())
-      );
-    }) as SelectedRoom[];
-  }
-
-  onRowSelected() {
-    const isEnable = this.filteredRooms.some((r) => r.selected);
-this.deleteAllBtnDisabled = isEnable?'':'disabled';
-  }
+  //   this.dialog.open(EditDialogComponent, dialogConfig);
+  // }
 
   private handleError(error: any) {
     const errlog: ErrorLog = {
@@ -152,5 +171,4 @@ this.deleteAllBtnDisabled = isEnable?'':'disabled';
       this.errorLogService.logError(errlog);
     }
   }
-
 }

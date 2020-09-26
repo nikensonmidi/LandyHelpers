@@ -35,7 +35,7 @@
     </div>
   </div>
   <!-- search rooms-->
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-md-12 mx-auto">
       <div class="md-form">
         <input
@@ -49,19 +49,19 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- search rooms ends-->
   <!-- Action btns-->
   <div class="row">
     <div class="col-md-2 my-2">
-      <button class="btn blue-gradient" (click)="removeRooms()" [disabled] = "deleteAllBtnDisabled">
+      <button class="btn blue-gradient" (click)="removeRooms()" [disabled] = "deleteAllBtnDisabled | async">
         Delete Selected
       </button>
     </div>
   </div>
   <!-- Room Grid-->
 
-  <table mdbTable class="z-depth-1">
+  <!-- <table mdbTable class="z-depth-1">
     <thead class="">
       <tr>
         <th
@@ -102,5 +102,19 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+
+  <ag-grid-angular
+#roomGrid
+  class="ag-theme-alpine room-grid-height"
+  [rowData]="filteredRooms | async"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+  (gridReady)="onGridReady($event)"
+  (selectionChanged) ="onRecordSelected()"
+
+>
+</ag-grid-angular>
+
 </div>

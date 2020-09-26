@@ -8,9 +8,7 @@ import { AppAssetsService } from '../core/services/app-assets.service';
 import { AppAsset } from '../core/models/app-asset';
 import { ErrorLogService } from '../core/services/error-log.service';
 import { ErrorLog } from '../core/models/error-log';
-import { catchError } from 'rxjs/operators';
-import { error } from 'protractor';
-import { throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',

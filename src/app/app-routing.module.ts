@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'rooms', loadChildren: () => import('./rooms/rooms.module').then(m => m.RoomsModule) },
   { path: 'room-edit', loadChildren: () => import('./room-edit/room-edit.module').then(m => m.RoomEditModule) },
-  { path: 'roomComment', loadChildren: () => import('./room-comment/room-comment.module').then(m => m.RoomCommentModule) }
+  { path: 'roomComment', loadChildren: () => import('./room-comment/room-comment.module').then(m => m.RoomCommentModule) },
+  { path: 'supervisors', loadChildren: () => import('./supervisors/supervisors.module').then(m => m.SupervisorsModule) }
 
 ];
 // { path: 'room-list', component: RoomListComponent, canActivate: [CanActivateRouteGuard] },
