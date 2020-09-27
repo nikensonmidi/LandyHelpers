@@ -46,6 +46,7 @@
     "ng-uikit-pro-standard": "file:ng-uikit-pro-standard-8.8.2.tgz",
     "ngx-auth-firebaseui": "^4.4.0",
     "node-fetch": "^2.6.1",
+    "primeng": "^10.0.0",
     "rxjs": "~6.6.3",
     "screenfull": "5.0.2",
     "tslib": "^2.0.1",

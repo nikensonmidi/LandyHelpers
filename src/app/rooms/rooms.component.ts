@@ -53,7 +53,6 @@ export class RoomsComponent implements OnInit {
   constructor(
     private router: Router,
     private roomService: RoomService,
-    private dialog: MatDialog,
     private errorLogService?: ErrorLogService
   ) {}
 
@@ -148,15 +147,7 @@ export class RoomsComponent implements OnInit {
   getDetail(room: Room): void {
     this.router.navigate(['room-edit', room.key]);
   }
-  // getRoomActions(room: SelectedRoom): void {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = false;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.data = room;
-  //   dialogConfig.width = '100vw';
 
-  //   this.dialog.open(EditDialogComponent, dialogConfig);
-  // }
 
   private handleError(error: any) {
     const errlog: ErrorLog = {

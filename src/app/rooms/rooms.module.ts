@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { IconsModule, TableModule, CheckboxModule } from 'ng-uikit-pro-standard';
 import { AgGridModule } from 'ag-grid-angular';
 import { RoomGridActionsComponent } from './room-actions/room-grid-actions/room-grid-actions.component';
+import { EditDialogComponent } from '../room-edit/edit-dialog/edit-dialog.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { RoomGridActionsComponent } from './room-actions/room-grid-actions/room-
     TableModule,
     CheckboxModule,
     AgGridModule.withComponents([RoomGridActionsComponent])
-  ]
+  ],
+  entryComponents: [EditDialogComponent],
 })
 export class RoomsModule { }

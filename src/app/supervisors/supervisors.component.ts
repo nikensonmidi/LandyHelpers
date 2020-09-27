@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Supervisor } from '../core/models/supervisor';
+import { SupervisorService } from '../core/services/supervisor.service';
+import { AddSupervisorDialogComponent } from './addSupervisorDialog/add-supervisor-dialog/add-supervisor-dialog.component';
 import { SupervisorsGridActionsComponent } from './supervisors-grid-actions/supervisors-grid-actions.component';
 
 @Component({
   selector: 'app-supervisors',
   templateUrl: './supervisors.component.html',
-  styleUrls: ['./supervisors.component.scss']
+  styleUrls: ['./supervisors.component.scss'],
 })
 export class SupervisorsComponent implements OnInit {
   columnDefs = [
@@ -18,18 +21,24 @@ export class SupervisorsComponent implements OnInit {
     },
     { headerName: 'Latest', field: 'latest', sortable: true, filter: true },
     { headerName: 'Selection', checkboxSelection: true },
-    { headerName: 'Action', cellRendererFramework: SupervisorsGridActionsComponent, },
+    {
+      headerName: 'Action',
+      cellRendererFramework: SupervisorsGridActionsComponent,
+    },
   ];
 
-
-filteredSupervisors: Observable<Supervisor[]>;
+  filteredSupervisors: Observable<Supervisor[]>;
   gridApi: any;
   gridColumnApi: any;
   rowSelection: string;
 
-  constructor() { }
+  constructor(
+    private supervisorService: SupervisorService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
+    
   }
 
   onGridReady(params) {
@@ -46,9 +55,12 @@ filteredSupervisors: Observable<Supervisor[]>;
     params.api.sizeColumnsToFit();
   }
 
-  displayAddSupervisorDialog(): void{
+  displayAddSupervisorDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '100vw';
 
-
+    this.dialog.open(AddSupervisorDialogComponent, dialogConfig);
   }
-
 }

@@ -21,12 +21,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import {  AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
 import { RoomEditModule } from './room-edit/room-edit.module';
 import { EditDialogComponent } from './room-edit/edit-dialog/edit-dialog.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+
 
 @NgModule({
   declarations: [AppComponent, AppNavMenuComponent, HomeComponent],
@@ -51,14 +52,14 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
-    NgxAuthFirebaseUIModule.forRoot(environment.firebase),
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase)
   ],
   providers: [
     MDBSpinningPreloader,
     CanActivateRouteGuard,
   ],
   bootstrap: [AppComponent],
-  schemas: [NO_ERRORS_SCHEMA],
-  entryComponents: [EditDialogComponent],
+  schemas: [NO_ERRORS_SCHEMA]
+
 })
 export class AppModule {}

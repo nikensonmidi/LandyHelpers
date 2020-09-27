@@ -1,16 +1,30 @@
 <div class="container">
   <div class="card" *ngIf="auth.userIsAuthenticated(); else notlogin">
     <div class="card-body">
-
       <p class="card-text">Use The left panel for some quick reference.</p>
-
-      <div class="card menu" (click)="redirectToModule('rooms')">
-        <div class="card-title">Rooms</div>
-        <div class="card-body">
-          <mdb-card-img
-            [src]="asset.url"
-            alt="Card image cap"
-          ></mdb-card-img>
+      <div class="row">
+        <div class="col-sm-4 col-xs-12">
+          <div class="card menu" (click)="redirectToModule('rooms')">
+            <div class="card-title">Rooms</div>
+            <div class="card-body">
+              <mdb-card-img
+                [src]="asset.url"
+                alt="Card image cap"
+              ></mdb-card-img>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4  col-xs-12">
+          <!--Supervisors-->
+          <div class="card menu" (click)="redirectToModule('supervisors')">
+            <div class="card-title">Supervisors</div>
+            <div class="card-body">
+              <mdb-card-img
+                [src]="asset.url"
+                alt="Card image cap"
+              ></mdb-card-img>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -27,7 +41,7 @@
       <div class="card-body">
         <ngx-auth-firebaseui-login
           appearance="appearance"
-          [titleText] ="titleText"
+          [titleText]="titleText"
           [orLabelText]="orLabelText"
           [guestEnabled]="false"
           [registrationEnabled]="false"
