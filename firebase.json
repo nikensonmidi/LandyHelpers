@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/ng-uikit-pro-standard",
+    "public": "dist/LandyApp",
     "ignore": [
       "firebase.json",
       "**/.*",
