@@ -1,29 +1,56 @@
-
-
 <div class="container">
-
-  <div class="card" *ngIf="auth.userIsAuthenticated() else notlogin" >
+  <div class="card" *ngIf="auth.userIsAuthenticated(); else notlogin">
     <div class="card-body">
-      <h5 class="card-title animated bounce">Hello {{ auth.user.displayName }} !</h5>
-      <p class="card-text">
-        Use The left panel for some quick reference.</p>
+      <p class="card-text">Use The left panel for some quick reference.</p>
+      <div class="row">
+        <div class="col-sm-4 col-xs-12">
+          <div class="card menu" (click)="redirectToModule('rooms')">
+            <div class="card-title">Rooms</div>
+            <div class="card-body">
+              <mdb-card-img
+                [src]="asset.url"
+                alt="Card image cap"
+              ></mdb-card-img>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-sm-4  col-xs-12">
+          Supervisors
+          <div class="card menu" (click)="redirectToModule('supervisors')">
+            <div class="card-title">Supervisors</div>
+            <div class="card-body">
+              <mdb-card-img
+                [src]="asset.url"
+                alt="Card image cap"
+              ></mdb-card-img>
+            </div>
+          </div>
+        </div> -->
 
+
+      </div>
     </div>
   </div>
-<ng-template #notlogin>
-  <div  class="card"  >
-    <div class="card-body">
-      <h5 class="card-title animated">Not authenticated</h5>
-      <p class="card-text">
-        Use The left panel to log in.</p>
 
+  <ng-template #notlogin>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title animated">Welcome to Landy Little helpers</h5>
+      </div>
     </div>
-  </div>
-</ng-template>
 
+    <div class="card">
+      <div class="card-body">
+        <ngx-auth-firebaseui-login
+          appearance="appearance"
+          [titleText]="titleText"
+          [orLabelText]="orLabelText"
+          [guestEnabled]="false"
+          [registrationEnabled]="false"
+          (onSuccess)="onLoggedIn($event)"
+          [providers]="provider"
+        ></ngx-auth-firebaseui-login>
+      </div>
+    </div>
+  </ng-template>
 </div>
-
-
-<!--   <ngx-auth-firebaseui appearance="standard"></ngx-auth-firebaseui> -->
-
-

@@ -1,0 +1,33 @@
+<a type="button" class="btn blue-gradient" (click)="addNewNote()">
+  Add New Comment</a>
+  <div class="md-form">
+    <input
+    placeholder="Search"
+      type="text"
+      [(ngModel)]="searchText"
+      class="form-control"
+      id="search"
+      mdbInput
+    />
+
+  </div>
+<!-- 
+  <mdb-date-picker name="mydate"  [placeholder]="'Selected date'"
+  ></mdb-date-picker>
+ -->
+
+<div class="room-notes-container">
+  <mdb-card *ngFor="let note of filteredRoomNotes">
+    <!--Card content-->
+    <mdb-card-body>
+      <!--Title-->
+      <mdb-card-title #cardref>
+        <h4>{{ note.name }}</h4>
+      </mdb-card-title>
+
+
+      <textarea  class="md-textarea form-control" rows="3" (change)="updateNote(note)" [(ngModel)]="note.content"></textarea>
+      <a class="btn-floating btn-sm btn-primary" (click) = "deleteNote(note)"><mdb-icon fas icon="trash-alt"></mdb-icon>  </a>
+    </mdb-card-body>
+  </mdb-card>
+</div>

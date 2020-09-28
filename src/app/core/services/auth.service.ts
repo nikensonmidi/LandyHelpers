@@ -4,25 +4,25 @@ import { auth, firestore } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AngularFirestore,
-  AngularFirestoreDocument
+  AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   user$: Observable<User>;
-user: User;
+  public user: User;
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router
   ) {
     this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => {
+      switchMap((user) => {
         if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
@@ -35,30 +35,40 @@ user: User;
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     // const provider = new auth.EmailAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
     this.user = credential.user;
     this.setSessionLogin(true);
     return this.updateUserData(credential.user);
   }
+  async emailSignin() {
+    const provider = new auth.EmailAuthProvider();
 
+    const credential = await this.afAuth.signInWithPopup(provider);
+    this.user = credential.user;
+    this.setSessionLogin(true);
+    return this.updateUserData(credential.user);
+  }
   private setSessionLogin(isLogin: boolean) {
     const loginState = isLogin ? 'true' : 'false';
     sessionStorage.setItem('islogin', loginState);
-    if (isLogin) { sessionStorage.setItem('user', JSON.stringify(this.user)); }
-
+    if (isLogin) {
+      sessionStorage.setItem('user', JSON.stringify(this.user));
+    }
   }
 
   async signOut() {
-    await this.afAuth.auth.signOut();
+    await this.afAuth.signOut();
     this.user = null;
     this.setSessionLogin(false);
     return this.router.navigate(['/']);
   }
- userIsAuthenticated(): boolean {
-const isLogin = sessionStorage.getItem('islogin');
-this.user = /true/.test(isLogin) ? JSON.parse( sessionStorage.getItem('user')) as User : this.user;
-return this.user !== null && this.user !== undefined;
- }
+  userIsAuthenticated(): boolean {
+    const isLogin = sessionStorage.getItem('islogin');
+    this.user = /true/.test(isLogin)
+      ? (JSON.parse(sessionStorage.getItem('user')) as User)
+      : this.user;
+    return this.user !== null && this.user !== undefined;
+  }
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
@@ -66,7 +76,7 @@ return this.user !== null && this.user !== undefined;
     const userData = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName
+      displayName: user.displayName,
     };
 
     return userRef.set(userData, { merge: true });

@@ -1,24 +1,31 @@
-
-
-
-    <mdb-navbar class="justify-content-end" SideClass="navbar navbar-expand-lg navbar-dark indigo"  style="height:300px;">
-      <mdb-navbar-brand >
-  <a (click)="sidenav.toggle()" mdbBtn><mdb-icon fas icon="bars"></mdb-icon></a>
-
-
-      </mdb-navbar-brand>
-    </mdb-navbar>
-    <router-outlet></router-outlet>
-
-
-
+<mdb-navbar
+  class="justify-content-end"
+  SideClass="navbar navbar-expand-lg navbar-dark indigo"
+  style="height: 300px"
+>
+  <mdb-navbar-brand class="navbar-brand-fill">
+    <div class="nav-grid-container">
+      <div class="settings">
+        <a (click)="sidenav.toggle()" mdbBtn
+          ><mdb-icon fas icon="bars"></mdb-icon
+        ></a>
+      </div>
+      <div class="home">
+        <a [routerLink]="['/']" class="float-right" mdbBtn
+          ><mdb-icon fas icon="home"></mdb-icon
+        ></a>
+      </div>
+    </div>
+  </mdb-navbar-brand>
+</mdb-navbar>
+<router-outlet></router-outlet>
 
 <!-- Sidebar navigation -->
 <mdb-side-nav #sidenav class="blue-gradient" [fixed]="true">
   <!-- Logo -->
   <li>
     <div class="logo-wrapper waves-light text-center">
-      <h3>LANDY HELPERS</h3>
+      <h3>{{ title }}</h3>
     </div>
   </li>
   <!--/. Logo -->
@@ -27,50 +34,36 @@
   <li>
     <ul class="collapsible collapsible-accordion">
       <mdb-accordion [multiple]="false" aria-multiselectable="false">
-
-        <div *ngIf="auth.user  as user; else login ">
-          <mdb-accordion-item class="no-collase">
-            <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/']"  >
-              <mdb-icon fas icon="home"></mdb-icon> Home
-            </mdb-accordion-item-head>
-            <mdb-accordion-item-body></mdb-accordion-item-body>
-          </mdb-accordion-item>
+        <!--  *ngIf="auth.user as user; else login"-->
+        <div *ngIf="auth.user as user; else login">
           <!-- Room link-->
           <mdb-accordion-item class="no-collase">
-            <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/rooms']"  >
+            <mdb-accordion-item-head mdbWavesEffect [routerLink]="['/rooms']">
               <mdb-icon far icon="hand-pointer"></mdb-icon> Rooms
             </mdb-accordion-item-head>
             <mdb-accordion-item-body></mdb-accordion-item-body>
           </mdb-accordion-item>
 
-
-                  <!-- Sign out link-->
-                  <mdb-accordion-item class="no-collase">
-                    <mdb-accordion-item-head mdbWavesEffect (click)="auth.signOut()"  >
-                      <i class="fas fa-angle-double-right"></i> Sign Out
-                    </mdb-accordion-item-head>
-                    <mdb-accordion-item-body></mdb-accordion-item-body>
-                  </mdb-accordion-item>
-
-
-
-
+          <!-- Sign out link-->
+          <mdb-accordion-item class="no-collase">
+            <mdb-accordion-item-head mdbWavesEffect (click)="auth.signOut()">
+              <i class="fas fa-angle-double-right"></i> Sign Out
+            </mdb-accordion-item-head>
+            <mdb-accordion-item-body></mdb-accordion-item-body>
+          </mdb-accordion-item>
         </div>
 
         <ng-template #login>
           <mdb-accordion-item class="no-collase">
-            <mdb-accordion-item-head mdbWavesEffect (click)="auth.googleSignin()"  >
-              <i class="fas fa-angle-double-right"></i> Sign In with <i class="fab fa-google"></i>
+            <mdb-accordion-item-head
+              mdbWavesEffect
+              (click)="auth.googleSignin()"
+            >
+              <i class="fas fa-angle-double-right"></i> Sign In with
+              <i class="fab fa-google"></i>
             </mdb-accordion-item-head>
-
           </mdb-accordion-item>
-
-          </ng-template>
-
-
-
-
-
+        </ng-template>
       </mdb-accordion>
     </ul>
   </li>
@@ -78,5 +71,3 @@
   <div class="sidenav-bg mask-strong"></div>
 </mdb-side-nav>
 <!--/. Sidebar navigation -->
-
-

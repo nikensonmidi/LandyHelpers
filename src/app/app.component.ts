@@ -7,7 +7,7 @@ import { AuthService } from './core/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Landy Helpers';
+  title = 'LANDY HELPERS';
 
 constructor(public auth: AuthService) {
 

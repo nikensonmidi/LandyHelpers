@@ -1,83 +1,120 @@
-
-
-
-<div class="container" >
+<div class="container">
   <h3>Add new set of rooms below</h3>
-    <!--Generating the rooms-->
-    <div class="row">
-      <div class="col-md-4 mx-auto">
-        <div class="md-form">
-          <input
-            type="number"
-            [(ngModel)]="from"
-            class="form-control"
-            id="beginrange"
-            mdbInput
-          />
-          <label for="beginrange">From</label>
-        </div>
-      </div>
-      <div class="col-md-4 mx-auto">
-        <div class="md-form">
-          <input
-            type="number"
-            [(ngModel)]="to"
-            class="form-control"
-            id="endrange"
-            mdbInput
-          />
-          <label for="endrange">To</label>
-        </div>
-      </div>
-      <div class="col-md-4 mx-auto">
-        <button class="btn blue-gradient" (click) ="generateRoomNumbers()">Add Room</button>
+  <!--Generating the rooms-->
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="md-form">
+        <input
+        placeholder="From"
+          type="number"
+          [(ngModel)]="from"
+          class="form-control"
+          id="beginrange"
+          mdbInput
+        />
+
       </div>
     </div>
+    <div class="col-md-4 mx-auto">
+      <div class="md-form">
+        <input
+        placeholder="To"
+          type="number"
+          [(ngModel)]="to"
+          class="form-control"
+          id="endrange"
+          mdbInput
+        />
 
-      <div class="row">
-        <div class="col-md-12 mx-auto">
-          <div class="md-form">
-            <input
-              type="text"
-              [(ngModel)]="searchText"
-              class="form-control"
-              id="search"
-              mdbInput
-            />
-            <label for="search">Search</label>
-          </div>
-        </div>
       </div>
-
-      <table mdbTable class="z-depth-1" stickyHeader="true">
-        <thead class="sticky-top">
-          <tr>
-            <th class="col-xs-3"
-              *ngFor="let head of headElements;"
-              scope="col"
-            >
-              {{head}}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let room of filteredRooms;">
-            <th scope="row"  class="col-xs-3">
-            {{room.roomNumber}}
-            </th>
-            <td  class="col-xs-3">
-              {{room.latest }}
-
-
-            <td  class="col-xs-3">
-              <a type="button" (click)="getDetail(room)" class="btn-floating indigo"><mdb-icon fas icon="edit"></mdb-icon></a>
-              <a type="button" class="btn-floating indigo" (click)="removeRoom(room)" ><mdb-icon fas icon="trash-alt"></mdb-icon></a>
-
-
-            </td>
-
-
-          </tr>
-        </tbody>
-      </table>
     </div>
+    <div class="col-md-4 mx-auto">
+      <button class="btn blue-gradient" (click)="generateRoomNumbers()">
+        Add Room
+      </button>
+    </div>
+  </div>
+  <!-- search rooms-->
+  <!-- <div class="row">
+    <div class="col-md-12 mx-auto">
+      <div class="md-form">
+        <input
+        placeholder="Search"
+          type="text"
+          [(ngModel)]="searchText"
+          class="form-control"
+          id="search"
+          mdbInput
+        />
+
+      </div>
+    </div>
+  </div> -->
+  <!-- search rooms ends-->
+  <!-- Action btns-->
+  <div class="row">
+    <div class="col-md-2 my-2">
+      <button class="btn blue-gradient" (click)="removeRooms()" [disabled] = "deleteAllBtnDisabled | async">
+        Delete Selected
+      </button>
+    </div>
+  </div>
+  <!-- Room Grid-->
+
+  <!-- <table mdbTable class="z-depth-1">
+    <thead class="">
+      <tr>
+        <th
+          class="col-xs-3 col-table"
+          *ngFor="let head of headElements"
+          scope="col"
+        >
+          {{ head }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let room of filteredRooms">
+        <th scope="row" class="col-xs-3 col-table">
+          {{ room.roomNumber }}
+        </th>
+        <td class="col-xs-3 col-table">
+          {{ room.latest }}
+        </td>
+
+        <td class="col-xs-3 col-table">
+          <a
+            type="button"
+            (click)="getRoomActions(room)"
+            class="btn-floating indigo"
+            ><mdb-icon fas icon="edit"></mdb-icon
+          ></a>
+          <a
+            type="button"
+            class="btn-floating indigo"
+            (click)="removeRoom(room)"
+            ><mdb-icon fas icon="trash-alt"></mdb-icon
+          ></a>
+        </td>
+
+        <td class="col-xs-3 col-table">
+          <mdb-checkbox (change)="onRowSelected()" [(ngModel)]="room.selected"></mdb-checkbox>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+
+  <ag-grid-angular
+#roomGrid
+  class="ag-theme-alpine room-grid-height"
+  [rowData]="filteredRooms | async"
+  [columnDefs]="columnDefs"
+  rowSelection="multiple"
+  (gridReady)="onGridReady($event)"
+  (selectionChanged) ="onRecordSelected()"
+
+>
+</ag-grid-angular>
+
+</div>
