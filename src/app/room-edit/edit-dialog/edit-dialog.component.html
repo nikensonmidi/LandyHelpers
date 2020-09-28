@@ -1,12 +1,12 @@
 <div class="center-grid-container">
   <div class="Left-area">
     <a
-    *ngIf="!optionsSection"
-    type="button"
-    (click)="returnToOptions()"
-    class="btn-floating indigo"
-    ><mdb-icon fas icon="angle-left"></mdb-icon
-  ></a>
+      *ngIf="!optionsSection"
+      type="button"
+      (click)="returnToOptions()"
+      class="btn-floating indigo"
+      ><mdb-icon fas icon="angle-left"></mdb-icon
+    ></a>
   </div>
   <div class="center-area">
     <h2 mat-dialog-title>Room {{ record.roomNumber }}</h2>
@@ -21,17 +21,14 @@
       class="btn blue-gradient"
       (click)="displayCommentSection()"
     >
-      Edit Comments</a
-    >
+      Edit Comments</a>
+
   </div>
-  <div class="supervisors">
+  <!-- <div class="supervisors">
     <a type="button" class="btn blue-gradient"> Edit Supervisors</a>
-  </div>
+  </div> -->
 </div>
 
 <div *ngIf="commentSections">
-<app-room-comment  [currentRoom] = "record">
-
-</app-room-comment>
-
+  <app-room-comment [currentRoom]="record"> </app-room-comment>
 </div>
