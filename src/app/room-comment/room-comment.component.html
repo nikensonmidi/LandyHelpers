@@ -11,7 +11,7 @@
     />
 
   </div>
-<!-- 
+<!--
   <mdb-date-picker name="mydate"  [placeholder]="'Selected date'"
   ></mdb-date-picker>
  -->
@@ -22,11 +22,11 @@
     <mdb-card-body>
       <!--Title-->
       <mdb-card-title #cardref>
-        <h4>{{ note.name }}</h4>
+        <h4>{{ note.name | ellipsis }}</h4>
       </mdb-card-title>
 
 
-      <textarea  class="md-textarea form-control" rows="3" (change)="updateNote(note)" [(ngModel)]="note.content"></textarea>
+      <textarea  class="md-textarea md-textarea-auto form-control form-control" (change)="updateNote(note)" [(ngModel)]="note.content" mdbInput></textarea>
       <a class="btn-floating btn-sm btn-primary" (click) = "deleteNote(note)"><mdb-icon fas icon="trash-alt"></mdb-icon>  </a>
     </mdb-card-body>
   </mdb-card>

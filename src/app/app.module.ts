@@ -27,6 +27,8 @@ import { CanActivateRouteGuard } from './core/guards/canactivateroute.guard';
 import { RoomEditModule } from './room-edit/room-edit.module';
 import { EditDialogComponent } from './room-edit/edit-dialog/edit-dialog.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { EllipsisPipe } from './shared/ellipsis.pipe';
+
 
 
 @NgModule({
@@ -54,6 +56,7 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
     }),
     NgxAuthFirebaseUIModule.forRoot(environment.firebase)
   ],
+
   providers: [
     MDBSpinningPreloader,
     CanActivateRouteGuard,

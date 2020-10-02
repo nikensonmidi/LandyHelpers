@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { RoomEditRoutingModule } from './room-edit-routing.module';
 
-import { IconsModule, CardsModule } from 'ng-uikit-pro-standard';
+import { IconsModule, CardsModule, InputsModule, WavesModule } from 'ng-uikit-pro-standard';
 import { FormsModule } from '@angular/forms';
 
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { RoomCommentModule } from '../room-comment/room-comment.module';
 import { RoomCommentComponent } from '../room-comment/room-comment.component';
+import { EllipsisPipe } from '../shared/ellipsis.pipe';
 
 
 
 @NgModule({
   declarations: [
      EditDialogComponent,
-     RoomCommentComponent
+     RoomCommentComponent,
+     EllipsisPipe
     ],
   imports: [
     CommonModule,
@@ -24,8 +26,11 @@ import { RoomCommentComponent } from '../room-comment/room-comment.component';
     IconsModule,
     CardsModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    InputsModule,
+    WavesModule
   ],
+  exports:[EllipsisPipe],
   providers: [ {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}]
 
 })
