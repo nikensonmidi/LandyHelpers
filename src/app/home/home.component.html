@@ -41,7 +41,7 @@
 
     <div class="card">
       <div class="card-body">
-        <ngx-auth-firebaseui-login
+        <ngx-auth-firebaseui
           appearance="appearance"
           [titleText]="titleText"
           [orLabelText]="orLabelText"
@@ -49,7 +49,8 @@
           [registrationEnabled]="false"
           (onSuccess)="onLoggedIn($event)"
           [providers]="provider"
-        ></ngx-auth-firebaseui-login>
+          [resetPasswordEnabled] ="passwordResetEnabled"
+        ></ngx-auth-firebaseui>
       </div>
     </div>
   </ng-template>
