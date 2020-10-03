@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   orLabelText = '';
   titleText = 'Please Login';
   asset: AppAsset;
-
+passwordResetEnabled = true;
   constructor(
     public auth: AuthService,
     private assetService: AppAssetsService,

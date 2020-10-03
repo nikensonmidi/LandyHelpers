@@ -1,6 +1,10 @@
 {
   "hosting": {
     "public": "dist/LandyApp",
+<<<<<<< HEAD
+=======
+    "site": "testlandyhelpers",
+>>>>>>> Test
     "ignore": [
       "firebase.json",
       "**/.*",

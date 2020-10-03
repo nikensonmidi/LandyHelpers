@@ -94,8 +94,9 @@ export class RoomCommentComponent implements OnInit {
   updateNote(note: Note): void {
     note.name = note.content
       .split(' ')
-      .filter((word, index) => index < 20)
+      .filter((word, index) => index < 5)
       .join(' ');
+    
     this.noteServices.updateNote(note).catch(err => this.handleError);
   }
   filterNotesByContent(search: string): Note[] {

@@ -10,6 +10,8 @@ import {
 } from 'ng-uikit-pro-standard';
 import { FormsModule } from '@angular/forms';
 
+
+
 @NgModule({
   declarations: [],
   imports: [
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     CardsModule,
     FormsModule,
     IconsModule,
-    DatepickerModule,
+    DatepickerModule
+
   ],
+
 })
 export class RoomCommentModule {}
